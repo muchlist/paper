@@ -1,5 +1,5 @@
-baseURL: "http://localhost:1313/"
-title: ExampleSite
+baseURL: "https://blog.muchlis.dev/"
+title: Muchlis Blog
 paginate: 5
 theme: PaperMod
 
@@ -21,7 +21,7 @@ params:
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
-  defaultTheme: light # dark, light, auto
+  defaultTheme: dark # dark, light, auto
   disableThemeToggle: false
 
   ShowReadingTime: true
@@ -43,15 +43,15 @@ params:
   assets:
     # disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
-    favicon: "<link / abs url>"
-    favicon16x16: "<link / abs url>"
-    favicon32x32: "<link / abs url>"
-    apple_touch_icon: "<link / abs url>"
-    safari_pinned_tab: "<link / abs url>"
+    favicon: "icon/favicon.ico"
+    favicon16x16: "icon/favicon-16x16.png"
+    favicon32x32: "icon/favicon-32x32.png"
+    apple_touch_icon: "icon/apple-touch-icon.png"
+    safari_pinned_tab: "icon/apple-touch-icon.png"
 
   label:
     text: "Home"
-    icon: /apple-touch-icon.png
+    icon: /icon/apple-touch-icon.png
     iconHeight: 35
 
   # profile-mode
@@ -80,13 +80,13 @@ params:
     - name: github
       url: "https://github.com/muchlist"
 
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
+  # analytics:
+    # google:
+    #   SiteVerificationTag: "XYZabc"
+    # bing:
+    #   SiteVerificationTag: "XYZabc"
+    # yandex:
+    #   SiteVerificationTag: "XYZabc"
 
   cover:
     hidden: true # hide everywhere but not in structured data
@@ -94,7 +94,7 @@ params:
     hiddenInSingle: true # hide on single page
 
   editPost:
-    URL: "https://github.com/<path_to_repo>/content"
+    URL: "https://github.com/muchlist/paper/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 
@@ -111,10 +111,10 @@ params:
     keys: ["title", "permalink", "summary", "content"]
 menu:
   main:
-    - identifier: categories
-      name: categories
-      url: /categories/
-      weight: 10
+    # - identifier: categories
+    #   name: categories
+    #   url: /categories/
+    #   weight: 10
     - identifier: tags
       name: tags
       url: /tags/
