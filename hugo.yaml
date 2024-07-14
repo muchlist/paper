@@ -75,12 +75,10 @@ params:
     Content: Saya seorang Software Engineer di bidang Backend dan Android. Melalui blog ini, saya berharap dapat berbagi pengetahuan dan pengalaman dalam dunia pemrograman, serta memberikan gambaran mengenai cara saya berpikir dan menyelesaikan masalah. 
 
   socialIcons:
-    - name: x
-      url: "https://x.com/"
-    - name: stackoverflow
-      url: "https://stackoverflow.com"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/muchlisdev/"
     - name: github
-      url: "https://github.com/"
+      url: "https://github.com/muchlist"
 
   analytics:
     google:
