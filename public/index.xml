@@ -2,22 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Muchlis Blog</title>
-    <link>http://localhost:1313/</link>
+    <link>https://blog.muchlis.dev/</link>
     <description>Recent content on Muchlis Blog</description>
     <image>
       <title>Muchlis Blog</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://blog.muchlis.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.muchlis.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.126.2</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 11:30:03 +0000</lastBuildDate>
+    <atom:link href="https://blog.muchlis.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cara Efektif Mengelola Goroutine: Kesalahan Umum dalam Proses Background Golang!</title>
+      <link>https://blog.muchlis.dev/post/safe-goroutine/</link>
+      <pubDate>Mon, 26 Dec 2022 11:30:03 +0000</pubDate>
+      <guid>https://blog.muchlis.dev/post/safe-goroutine/</guid>
+      <description>Solusi Kesalahan Umum dalam Proses Background Golang.</description>
+    </item>
     <item>
       <title>Golang Profiling</title>
-      <link>http://localhost:1313/post/profiling/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/post/profiling/</guid>
+      <link>https://blog.muchlis.dev/post/profiling/</link>
+      <pubDate>Thu, 20 Oct 2022 11:30:03 +0000</pubDate>
+      <guid>https://blog.muchlis.dev/post/profiling/</guid>
       <description>Bagaimana cara melakukan pengukuran kinerja aplikasi golang.</description>
     </item>
   </channel>
