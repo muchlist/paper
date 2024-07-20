@@ -1,18 +1,15 @@
 ---
-title: "Golang Profiling"
-date: 2020-09-15T11:30:03+00:00
+title: "Teknik Profiling di Golang"
+date: 2022-10-20T11:30:03+00:00
 # weight: 1
-# aliases: ["/first"]
 tags: ["golang", "profiling", "benchmark", "optimization"]
-author: "Muchlis"
-# author: ["Me", "You"] # multiple authors
+author: "Muchlis at eFishery"
 showToc: true
 TocOpen: false
 draft: false
 hidemeta: false
 comments: false
 description: "Bagaimana cara melakukan pengukuran kinerja aplikasi golang."
-# canonicalURL: "https://canonical.url/to/page"
 disableHLJS: false # to disable highlightjs
 disableShare: false
 disableHLJS: false
@@ -23,12 +20,10 @@ ShowBreadCrumbs: true
 ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
+ShowShareButtons: true
+ShareButtons: ["linkedin", "x", "facebook", "whatsapp", "telegram"]
 UseHugoToc: true
 cover:
-    # image: "<image path/url>" # image path/url
-    # alt: "<alt text>" # alt text
-    # caption: "<text>" # display caption under cover
-    # relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
 editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
@@ -38,6 +33,8 @@ editPost:
 
 Profiling adalah proses mengukur kinerja aplikasi untuk mengidentifikasi dan menganalisis berbagai aspek yang mempengaruhi performa, seperti penggunaan CPU, memori, dan goroutine. Profiling sangat penting dalam proses pengembangan untuk memastikan aplikasi berjalan efisien dan optimal serta untuk mendeteksi anomali.
 
+<!--more-->
+
 ## Tujuan Profiling pada artikel ini 
 
 - Mendeteksi kebocoran memori (memory leak).
@@ -46,7 +43,8 @@ Profiling adalah proses mengukur kinerja aplikasi untuk mengidentifikasi dan men
 
 Output profiling di golang contohnya seperti ini :
 
-![profile001.png](/img/pprof/pprof-sample.png)
+<!-- ![profile001.png](/img/pprof/pprof-sample.png) -->
+{{< zoom-image src="/img/pprof/pprof-sample.png" title="" alt="profiling png" >}}
 
 ## Persiapan
 
@@ -109,7 +107,8 @@ Output profiling di golang contohnya seperti ini :
     
     ketika server dijalankan, melakukan hit ke endpoint `http://localhost:4000/debug/pprof/` akan menampilkan halaman web seperti berikut :
     
-    ![debug pprof endpoint](/img/pprof/debug-pprof-endpoint.png)
+    <!-- ![debug pprof endpoint](/img/pprof/debug-pprof-endpoint.png) -->
+    {{< zoom-image src="/img/pprof/debug-pprof-endpoint.png" title="" alt="debug pprof endpoint" >}}
     
     Pada halaman ini, kita dapat mengetahui keuntungan apa saja dan data apa saja yang bisa kita analisa dari endpoint ini.
     
@@ -161,11 +160,13 @@ Output profiling di golang contohnya seperti ini :
     
     Umumnya semua penggunaan memory bisa terlihat dengan perintah `png` atau `web` yang akan menampilkan grafik seperti berikut ini. Gambar dibawah ini adalah penggunaan yang cukup normal. Jika terjadi memory leak kita bisa dengan mudah melihat kotak besar yang sangat mencolok yang dari waktu kewaktu akan terus membesar :
     
-    ![profile001.png](/img/pprof/pprof-sample.png)
+    <!-- ![profile001.png](/img/pprof/pprof-sample.png) -->
+    {{< zoom-image src="/img/pprof/pprof-sample.png" title="" alt="profiling png" >}}
     
     untuk lebih detail, gunakan pprof menggunakan terminal :
     
-    ![heap-out.png](/img/pprof/pprof-heap-out.png)
+    <!-- ![heap-out.png](/img/pprof/pprof-heap-out.png) -->
+    {{< zoom-image src="/img/pprof/pprof-heap-out.png" title="" alt="heap output" >}}
     
     Menggunakan perintah `top20 -cum` akan menampilkan fungsi apa saja yang menggunakan memori secara kumulatif (dijumlahkan dengan fungsi-fungsi pada tumpukan di bawahnya). Kita bisa mengabaikan jumlah pemakaian yang wajar. Misalnya, `go-chi` sangat wajar mengendap memori sebesar 19MB karena baru saja dilakukan load test pada service ini.
     
@@ -173,7 +174,8 @@ Output profiling di golang contohnya seperti ini :
     
     sehingga menampilkan 
     
-    ![top-cum.png](/img/pprof/top-cum.png)
+    <!-- ![top-cum.png](/img/pprof/top-cum.png) -->
+    {{< zoom-image src="/img/pprof/top-cum.png" title="" alt="top cumulative memory" >}}
     
     Dari sana kita bisa melihat fungsi mana saja yang dirasa kurang optimal jika memang angkanya tidak pas.
     
@@ -190,13 +192,15 @@ Output profiling di golang contohnya seperti ini :
 3. Disaat yang bersamaan, lakukan load test. Bisa menggunakan `hey`, `jmeter` atau tools load test lainnya.
 4. Hasilnya akan seperti berikut
     
-    ![top10-cum.png](/img/pprof/top10-cum.png)
+    <!-- ![top10-cum.png](/img/pprof/top10-cum.png) -->
+    {{< zoom-image src="/img/pprof/top10-cum.png" title="" alt="top 10 cumulative memory" >}}
     
     Pada data di atas, saya mengecek middleware buatan sendiri yang ternyata proses lamanya adalah di `next.ServeHTTP`, yang mana itu wajar karena perhitungan kumulatif (di bawah fungsi tersebut akan dijalankan program yang sebenarnya, yaitu menuju handler → service → repo).
     
 5. Sample gambar jika melakukan command `png`:
     
-    ![output-png.png](/img/pprof/output-png.png)
+    <!-- ![output-png.png](/img/pprof/output-png.png) -->
+    {{< zoom-image src="/img/pprof/output-png.png" title="" alt="output png" >}}
     
     ## Garbage Collector
     
@@ -258,7 +262,8 @@ Output profiling di golang contohnya seperti ini :
     - Melakukan profiling seperti diatas dan membandingkan hasilnya.
     - Menggunakan tools seperti `hey` untuk load test dan membandingkan outputnya, misalnya `request per second`. Catat hasil sebelum diubah dan sesudah diubah.
         
-        ![hey.png](/img/pprof/hey.png)
+        <!-- ![hey.png](/img/pprof/hey.png) -->
+        {{< zoom-image src="/img/pprof/hey.png" title="" alt="hey example for load test" >}}
         
     - Melihat peforma Garbage Collector ketika dilakukan load test.
 

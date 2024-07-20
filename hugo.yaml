@@ -1,5 +1,5 @@
 baseURL: "https://blog.muchlis.dev/"
-title: Muchlis Blog
+title: Muchlis Dev
 paginate: 5
 theme: PaperMod
 
@@ -14,12 +14,12 @@ minify:
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: MuchlisDev
+  title: Muchlis Dev
   description: "Catatan perjalanan sebagai programmer"
   keywords: [Blog, Portfolio, Programmer, Backend]
   author: Muchlis
   # author: ["Me", "You"] # multiple authors
-  images: ["<link or path of image for opengraph, twitter-cards>"]
+  # images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
   defaultTheme: dark # dark, light, auto
   disableThemeToggle: false
@@ -80,9 +80,9 @@ params:
     - name: github
       url: "https://github.com/muchlist"
 
-  # analytics:
-    # google:
-    #   SiteVerificationTag: "XYZabc"
+  analytics:
+    google:
+      SiteVerificationTag: "G-F1ZZCKLSJF"
     # bing:
     #   SiteVerificationTag: "XYZabc"
     # yandex:
@@ -124,7 +124,7 @@ menu:
       url: /search
       weight: 30
     - identifier: portfolio
-      name: portfolio
+      name: portfolio (2021)
       url: https://muchlis.dev
       weight: 40
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
@@ -143,3 +143,7 @@ outputs:
     - HTML
     - RSS
     - JSON # necessary for search
+
+services:
+  googleAnalytics:
+    id: G-F1ZZCKLSJF

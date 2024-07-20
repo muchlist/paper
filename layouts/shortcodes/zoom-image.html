@@ -1,0 +1,6 @@
+<figure>
+    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" class="clickable-image lazyload" data-src="{{ .Get "src" }}" loading="lazy">
+    {{ if .Get "title" }}
+    <figcaption>{{ .Get "title" }}</figcaption>
+    {{ end }}
+</figure>

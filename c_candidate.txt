@@ -1,0 +1,32 @@
+Golang
+- Profiling Techniques in Golang: A Comprehensive Guide :: OK
+- Common Mistakes in Using Golang Goroutines :: OK
+- Best Practices for Structuring Golang Projects and Folders : OK
+- Implementing DB Transactions in the Logic Layer in Golang
+- Using TraceID for Improved Observability in Golang Applications
+- Implementing OpenTelemetry in Golang for Enhanced Observability
+- Database Issolation Level
+- Differentiating Between Struct Payloads, Entities, and Models in Golang. Anti Corruption Layer
+- Circuit Breaker
+- Achieving Text Similarity in Golang: Methods and Libraries
+- Ensuring Idempotency in Golang: Best Practices and Strategies
+- Implementing the Saga Pattern in Golang for Distributed Transactions
+- Using the Outbox Pattern in Golang to Ensure Data Consistency
+- Comparing Libraries to Diff Two Structs in Golang
+- Effective Logging with Context in Golang: Recommended Libraries
+- Interfaces shoud be in Producers or Consumers ?
+- Exploring NoSQL Databases in Golang: Graph, Document, and Search Databases
+- Strategies for Invalidating Cache in Golang Applications
+- Graceful Shutdown in Golang: Techniques and Best Practices
+- The Importance of Keeping Dependencies Up-to-Date in Golang Projects
+
+Flutter
+- Writing Granular Code in Flutter for Easy Switching Between State Management Solutions
+- Best Practices for Structuring Flutter Projects and Folders
+- Riverpod vs Bloc: A Comparative Analysis for State Management in Flutter
+- Handling Inconsistencies of Riverpod (makin lama makin nganu ini si rousel) for Flutter Developers
+- Effective Use of JWT Token States in Flutter: Fresh, Rotten, and Expired Tokens
+- The Importance of Unit Testing in Flutter Views: Does It Really Matter?
+- Overcoming Limitations of the Google Maps Library in Flutter for Displaying Info Windows
+- Preparing Your Flutter App for Production: A Comprehensive Checklist
+- Comparing Navigation Libraries in Flutter: Which One Should You Choose?
