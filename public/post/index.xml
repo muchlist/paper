@@ -9,7 +9,7 @@
     <lastBuildDate>Sat, 20 Jul 2024 16:06:50 +0800</lastBuildDate>
     <atom:link href="https://blog.muchlis.dev/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Struktur Folder dan Aturan Penulisan Kode dalam Aplikasi Golang: Preferensi Pribadi</title>
+      <title>Struktur Folder dan Aturan Penulisan Kode dalam Project Golang: Preferensi Pribadi</title>
       <link>https://blog.muchlis.dev/post/structuring-project-folder/</link>
       <pubDate>Sat, 20 Jul 2024 16:06:50 +0800</pubDate>
       <guid>https://blog.muchlis.dev/post/structuring-project-folder/</guid>

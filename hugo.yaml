@@ -72,7 +72,7 @@ params:
   # home-info mode
   homeInfoParams:
     Title: "Hai, Saya Muchlis"
-    Content: Saya seorang Software Engineer di bidang Backend dan Android. Melalui blog ini, saya berharap dapat berbagi pengetahuan dan pengalaman dalam dunia pemrograman, serta memberikan gambaran mengenai cara saya berpikir dan menyelesaikan masalah. 
+    Content: Saya seorang Software Engineer Backend dan Android. Melalui blog ini, saya ingin berbagi pengetahuan dan pengalaman dalam pemrograman, serta menunjukkan cara saya berpikir dan menyelesaikan masalah. 
 
   socialIcons:
     - name: linkedin

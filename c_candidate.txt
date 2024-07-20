@@ -2,7 +2,9 @@ Golang
 - Profiling Techniques in Golang: A Comprehensive Guide :: OK
 - Common Mistakes in Using Golang Goroutines :: OK
 - Best Practices for Structuring Golang Projects and Folders : OK
+- Mental model. Konsistensi cara berpikir didalam kode
 - Implementing DB Transactions in the Logic Layer in Golang
+- Standart Pagination will hurt your database
 - Using TraceID for Improved Observability in Golang Applications
 - Implementing OpenTelemetry in Golang for Enhanced Observability
 - Database Issolation Level
@@ -19,6 +21,10 @@ Golang
 - Strategies for Invalidating Cache in Golang Applications
 - Graceful Shutdown in Golang: Techniques and Best Practices
 - The Importance of Keeping Dependencies Up-to-Date in Golang Projects
+- Golang Generic
+- Best Book for programmer golang
+- Project : upload file and search by text
+- Pengalaman mengelola code base yang sulit dirubah. Pelajaran yang bisa diambil
 
 Flutter
 - Writing Granular Code in Flutter for Easy Switching Between State Management Solutions
