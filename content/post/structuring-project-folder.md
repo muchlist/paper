@@ -45,7 +45,7 @@ Link Repository : [https://github.com/muchlist/templaterepo](https://github.com/
 ## Prinsip-prinsip yang mendasari desain ini :
 
 1. Arsitektur Hexagonal: Memisahkan logika inti dari ketergantungan eksternal untuk menjaga kebersihan kode dan memudahkan pengujian.
-2. Pengelolaan Dependensi: Menghindari error siklus dependensi dengan menerapkan prinsip dependency inversion, sehingga modul-modul dapat saling berinteraksi tanpa saling bergantung secara langsung.
+2. Pengelolaan Dependensi: Menghindari error siklus dependensi dengan menerapkan prinsip dependency injection dan dependency inversion, sehingga modul-modul dapat saling berinteraksi tanpa saling bergantung secara langsung.
 3. Kejelasan Struktur Kode: Menggunakan folder `pkg/` untuk kode yang dapat digunakan ulang di berbagai bagian aplikasi dan folder `business/` untuk menyimpan logika bisnis dan domain khusus.
 4. Aturan Pengembangan Aplikasi: Menetapkan aturan untuk pengelolaan konfigurasi, penanganan kesalahan, dan penamaan untuk memastikan konsistensi dan kualitas kode.
 5. Alat Bantu: Memanfaatkan Makefile untuk mempercepat proses pengembangan dan pre-commit hooks untuk menjaga kualitas kode dan mencegah kesalahan sebelum kode di-commit.
@@ -157,7 +157,7 @@ Model-model (termasuk DTO, Payload, Entitas) dapat diletakkan di dalam package b
 
 ## Rules
 
-Sangat penting untuk membuat dan memperbarui aturan yang telah disepakati agar semua pihak mengikuti pendekatan yang konsisten. Misalnya, template repositori ini didasarkan pada kemampuannya untuk menghindari kode yang terlalu terikat (tightly-coupled), maka aturan `Cara Menulis Dependensi` menjadi sangat penting untuk dipatuhi. 
+Sangat penting untuk membuat dan memperbarui aturan yang telah disepakati agar semua pihak mengikuti pendekatan yang konsisten. Misalnya, template repositori ini didasarkan pada kemampuannya untuk menghindari kode yang terlalu terikat (tightly-coupled), maka aturan `Cara Penulisan Dependensi Kode` menjadi sangat penting untuk dipatuhi. 
 
 Aturan ini akan bertambah seiring berjalannya waktu. Misalnya, yang seringkali terjadi perbedaan pendapat : 
 - `Bagaimana cara melakukan database transaction di logic layer ?`
@@ -165,12 +165,36 @@ Aturan ini akan bertambah seiring berjalannya waktu. Misalnya, yang seringkali t
 
 ### Cara Penulisan Dependensi Kode
 
-#### Antar layer berkomunikasi melalui Interface: 
-Di lapisan business, terutama untuk layer `service (core)`, komunikasi antar layer mengandalkan interface dan menggunakan prinsip `dependency inversion`. Seperti penjelasan pada gambar berikut.  
+#### Menggunakan Dependency Injection :
+Dependency Injection (DI) adalah pola desain di mana dependensi disediakan dari luar objek tersebut. Ini membantu mengelola ketergantungan antar komponen, membuat kode lebih modular, dan memudahkan pengujian. Jadi, modul yang saling ketergantungan, harus bergantung pada abstraksi.
+
+Contoh konstruktor untuk membuat logic service user  `business/user/service.go`
+
+```go
+type UserService struct {
+	storer   UserStorer
+	notifier NotifSender
+}
+
+// NewUserService memerlukan UserStorer dan NotifSender.
+// UserStorer dan NotifSender adalah abstraksi yang diperlukan oleh UserService
+// Objek yang akan memenuhi UserStorer dan NotifSender ini akan ditentukan oleh 
+// pengaturan dependensi di folder /app.
+// UserStorer dan NotifSender juga dapat dibuat tiruannya untuk memudahkan pengujian
+func NewUserService(store UserStorer, notifier NotifSender) *UserService {
+	return &UserService{storer: store, notifier: notifier}
+}
+```
+
+#### Menerapkan Prinsip Dependency Inversion: 
+Di lapisan business, terutama untuk bagian logic (biasanya dinamakan `service.go` atau `usecase.go` atau `core`), komunikasi antar layer mengandalkan abstraksi dan penerapan prinsip `dependency inversion` yang kuat. Dalam golang, dependensi inversi yang sesungguhnya bisa dicapai seperti penjelasan pada gambar berikut.  
 
 {{< zoom-image src="/img/project/invers-interface.png" title="" alt="dependency inversion interface golang" >}}
 
-Misalnya, domain `business/user` terhubung dengan `business/notifserv`. Implementasi dependensinya dapat dilihat di `app/api-user/routing.go`. Metode ini mencegah error siklus dependensi impor dan memastikan kode tetap tidak terlalu terikat (tightly-coupled) antar domain.
+Mengenai posisi interface, sebaiknya diletakkan pada modul yang membutuhkannya. Hal ini pernah dibahas dalam buku [100 Go Mistake and how to avoid them](https://www.manning.com/books/100-go-mistakes-and-how-to-avoid-them) dan beberapa buku lainnya.
+
+Misalnya, domain `business/user` memerlukan fungsi untuk mengirimkan notifikasi yang bisa dipenuhi oleh `business/notifserv`, namun tidak secara gamblang `business/user` mengatakan perlu `business/notifserv`, melainkan lebih kepada mengatakan `"Saya perlu unit yang bisa menjalankan SendNotification()"` -- titik.  
+Implementasi dependensinya dapat dilihat di `app/api-user/routing.go`. Metode ini mencegah error siklus dependensi impor dan memastikan kode tetap tidak terlalu terikat (tightly-coupled) antar domain.
 
 Contoh dependensi yang dibutuhkan untuk membuat core logic user `business/user/storer.go`: 
 ```go
@@ -195,19 +219,6 @@ type UserStorer interface {
 // Objek yang digunakan untuk mengirim notifikasi akan ditentukan oleh pengaturan dependensi di folder /app.
 type NotifSender interface {
 	SendNotification(message string) error
-}
-```
-
-Contoh konstruktor untuk membuat logic service user  `business/user/service.go`
-```go
-type UserService struct {
-	storer   UserStorer
-	notifier NotifSender
-}
-
-// NewUserService memerlukan UserStorer dan NotifSender. Objek yang akan memenuhi UserStorer dan NotifSender ini akan ditentukan oleh pengaturan dependensi di folder /app.
-func NewUserService(store UserStorer, notifier NotifSender) *UserService {
-	return &UserService{storer: store, notifier: notifier}
 }
 ```
 
@@ -296,3 +307,4 @@ Disarankan menggunakan pre-commit ([https://pre-commit.com/]("https://pre-commit
   pre-commit run --all-files
 
   ```
+
