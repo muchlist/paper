@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){const e=document.querySelectorAll(".clickable-image");e.forEach(e=>{e.addEventListener("click",function(){const e=document.createElement("div");e.classList.add("fullscreen-image");const t=this.cloneNode();e.appendChild(t),document.body.appendChild(e),e.addEventListener("click",function(){this.remove()})})})})

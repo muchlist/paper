@@ -1,5 +1,5 @@
 ---
-title: "Cara Efektif Mengelola Goroutine: Kesalahan Umum dalam Proses Background Golang!"
+title: "Kesalahan Umum dalam Penggunaan Golang Goroutine"
 date: 2022-12-26T11:30:03+00:00
 # weight: 1
 tags: ["golang", "goroutine", "context management", "error handling", "graceful shutdown", "best practices"]
@@ -9,8 +9,7 @@ TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: "Solusi Kesalahan Umum dalam Proses Background Golang."
-# canonicalURL: "https://canonical.url/to/page"
+description: "Cara efektif mengelola goroutine."
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
@@ -21,6 +20,8 @@ ShowBreadCrumbs: true
 ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
+ShowShareButtons: true
+ShareButtons: ["linkedin", "x", "facebook", "whatsapp", "telegram"]
 UseHugoToc: true
 cover:
     hidden: true # only hide on current single page
@@ -31,6 +32,8 @@ editPost:
 ---
 
 Dalam pengembangan backend dengan Golang, pengelolaan proses di background menggunakan goroutine merupakan praktik umum yang dapat meningkatkan kinerja aplikasi. Namun, terdapat beberapa masalah umum yang sering dihadapi ketika mengimplementasikan goroutine, terutama dalam hal penanganan panic, pengelolaan context, dan proses shutdown yang baik. Artikel ini akan mengulas beberapa kesalahan umum yang terkait dengan penggunaan goroutine dan cara mengatasinya.
+
+<!--more-->
 
 ## Masalah Umum dalam Penggunaan Goroutine
 1. Panic di dalam sub goroutine tidak termasuk dalam area recovery main goroutine.

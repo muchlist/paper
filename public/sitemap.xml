@@ -3,18 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.muchlis.dev/tags/best-practices/</loc>
-    <lastmod>2022-12-26T11:30:03+00:00</lastmod>
+    <lastmod>2024-07-20T16:06:50+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/safe-goroutine/</loc>
-    <lastmod>2022-12-26T11:30:03+00:00</lastmod>
+    <loc>https://blog.muchlis.dev/tags/golang/</loc>
+    <lastmod>2024-07-20T16:06:50+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.muchlis.dev/</loc>
+    <lastmod>2024-07-20T16:06:50+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.muchlis.dev/post/</loc>
+    <lastmod>2024-07-20T16:06:50+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.muchlis.dev/post/structuring-project-folder/</loc>
+    <lastmod>2024-07-20T16:06:50+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.muchlis.dev/tags/</loc>
+    <lastmod>2024-07-20T16:06:50+08:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/context-management/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/error-handling/</loc>
-    <lastmod>2022-12-26T11:30:03+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.muchlis.dev/tags/golang/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/goroutine/</loc>
@@ -23,25 +32,19 @@
     <loc>https://blog.muchlis.dev/tags/graceful-shutdown/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/</loc>
-    <lastmod>2022-12-26T11:30:03+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.muchlis.dev/post/</loc>
-    <lastmod>2022-12-26T11:30:03+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.muchlis.dev/tags/</loc>
+    <loc>https://blog.muchlis.dev/post/safe-goroutine/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/benchmark/</loc>
-    <lastmod>2022-10-20T11:30:03+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.muchlis.dev/post/profiling/</loc>
     <lastmod>2022-10-20T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/optimization/</loc>
     <lastmod>2022-10-20T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/profiling/</loc>
+    <lastmod>2022-10-20T11:30:03+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.muchlis.dev/post/profiling/</loc>
     <lastmod>2022-10-20T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/categories/</loc>
