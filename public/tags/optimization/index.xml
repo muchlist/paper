@@ -13,7 +13,7 @@
       <link>https://blog.muchlis.dev/post/profiling/</link>
       <pubDate>Thu, 20 Oct 2022 11:30:03 +0000</pubDate>
       <guid>https://blog.muchlis.dev/post/profiling/</guid>
-      <description>Bagaimana cara melakukan pengukuran kinerja aplikasi golang.</description>
+      <description>Bagaimana cara melakukan pengukuran kinerja aplikasi golang menggunakan profiling pprof.</description>
     </item>
   </channel>
 </rss>

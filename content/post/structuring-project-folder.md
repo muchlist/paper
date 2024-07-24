@@ -3,13 +3,14 @@ title: 'Struktur Folder dan Aturan Penulisan Kode dalam Project Golang: Preferen
 date: 2024-07-20T16:06:50+08:00
 draft: false
 # weight: 1
-tags: ["golang", "best-practices"]
+tags: ["Golang", "Best Practices"]
+categories: ["Backend"]
 author: "Muchlis"
 showToc: true
 TocOpen: false
 hidemeta: false
 comments: false
-description: 'Golang Repository Template dengan Arsitektur Hexagonal'
+description: 'Golang Struktur Folder dengan Arsitektur Hexagonal'
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false

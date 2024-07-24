@@ -2,7 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.muchlis.dev/categories/backend/</loc>
+    <lastmod>2024-07-20T16:06:50+08:00</lastmod>
+  </url><url>
     <loc>https://blog.muchlis.dev/tags/best-practices/</loc>
+    <lastmod>2024-07-20T16:06:50+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.muchlis.dev/categories/</loc>
     <lastmod>2024-07-20T16:06:50+08:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/golang/</loc>
@@ -46,8 +52,6 @@
   </url><url>
     <loc>https://blog.muchlis.dev/post/profiling/</loc>
     <lastmod>2022-10-20T11:30:03+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.muchlis.dev/categories/</loc>
   </url><url>
     <loc>https://blog.muchlis.dev/search/</loc>
   </url>

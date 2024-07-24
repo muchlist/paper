@@ -13,7 +13,7 @@
       <link>https://blog.muchlis.dev/post/safe-goroutine/</link>
       <pubDate>Mon, 26 Dec 2022 11:30:03 +0000</pubDate>
       <guid>https://blog.muchlis.dev/post/safe-goroutine/</guid>
-      <description>Cara efektif mengelola goroutine.</description>
+      <description>Cara efektif menghindari kesalahan yang bisa terjadi pada penggunaan goroutine.</description>
     </item>
   </channel>
 </rss>

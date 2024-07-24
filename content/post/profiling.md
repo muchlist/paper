@@ -2,14 +2,15 @@
 title: "Teknik Profiling di Golang"
 date: 2022-10-20T11:30:03+00:00
 # weight: 1
-tags: ["golang", "profiling", "benchmark", "optimization"]
+tags: ["Golang", "Profiling", "Benchmark", "Optimization"]
+categories: ["Backend"]
 author: "Muchlis at eFishery"
 showToc: true
 TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: "Bagaimana cara melakukan pengukuran kinerja aplikasi golang."
+description: "Bagaimana cara melakukan pengukuran kinerja aplikasi golang menggunakan profiling pprof."
 disableHLJS: false # to disable highlightjs
 disableShare: false
 disableHLJS: false

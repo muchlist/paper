@@ -13,21 +13,21 @@
       <link>https://blog.muchlis.dev/post/structuring-project-folder/</link>
       <pubDate>Sat, 20 Jul 2024 16:06:50 +0800</pubDate>
       <guid>https://blog.muchlis.dev/post/structuring-project-folder/</guid>
-      <description>Golang Repository Template dengan Arsitektur Hexagonal</description>
+      <description>Golang Struktur Folder dengan Arsitektur Hexagonal</description>
     </item>
     <item>
       <title>Kesalahan Umum dalam Penggunaan Golang Goroutine</title>
       <link>https://blog.muchlis.dev/post/safe-goroutine/</link>
       <pubDate>Mon, 26 Dec 2022 11:30:03 +0000</pubDate>
       <guid>https://blog.muchlis.dev/post/safe-goroutine/</guid>
-      <description>Cara efektif mengelola goroutine.</description>
+      <description>Cara efektif menghindari kesalahan yang bisa terjadi pada penggunaan goroutine.</description>
     </item>
     <item>
       <title>Teknik Profiling di Golang</title>
       <link>https://blog.muchlis.dev/post/profiling/</link>
       <pubDate>Thu, 20 Oct 2022 11:30:03 +0000</pubDate>
       <guid>https://blog.muchlis.dev/post/profiling/</guid>
-      <description>Bagaimana cara melakukan pengukuran kinerja aplikasi golang.</description>
+      <description>Bagaimana cara melakukan pengukuran kinerja aplikasi golang menggunakan profiling pprof.</description>
     </item>
   </channel>
 </rss>

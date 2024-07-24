@@ -108,23 +108,23 @@ params:
     threshold: 0.4
     minMatchCharLength: 0
     limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
-    keys: ["title", "permalink", "summary", "content"]
+    keys: ["title", "permalink", "summary", "description", "tags", "content"]
 menu:
   main:
-    # - identifier: categories
-    #   name: categories
-    #   url: /categories/
-    #   weight: 10
     - identifier: tags
-      name: tags
+      name: Tags
       url: /tags/
+      weight: 10
+    - identifier: categories
+      name: Categories
+      url: /categories/
       weight: 20
     - identifier: search
-      name: search
+      name: Search
       url: /search
       weight: 30
     - identifier: portfolio
-      name: portfolio (2021)
+      name: Portfolio (2021)
       url: https://muchlis.dev
       weight: 40
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
@@ -147,3 +147,11 @@ outputs:
 services:
   googleAnalytics:
     id: G-F1ZZCKLSJF
+
+taxonomies:
+  category: categories
+  tag: tags
+
+permalinks:
+  categories: /:section/:slug
+  tags: /:section/:slug

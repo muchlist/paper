@@ -2,14 +2,15 @@
 title: "Kesalahan Umum dalam Penggunaan Golang Goroutine"
 date: 2022-12-26T11:30:03+00:00
 # weight: 1
-tags: ["golang", "goroutine", "context management", "error handling", "graceful shutdown", "best practices"]
+tags: ["Golang", "Goroutine", "Context Management", "Error Handling", "Graceful Shutdown", "Best Practices"]
+categories: ["Backend"]
 author: "Muchlis at eFishery"
 showToc: true
 TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: "Cara efektif mengelola goroutine."
+description: "Cara efektif menghindari kesalahan yang bisa terjadi pada penggunaan goroutine."
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
