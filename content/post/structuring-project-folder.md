@@ -9,7 +9,7 @@ author: "Muchlis"
 showToc: true
 TocOpen: false
 hidemeta: false
-comments: false
+comments: true
 description: 'Golang Struktur Folder dengan Arsitektur Hexagonal'
 disableHLJS: true # to disable highlightjs
 disableShare: false

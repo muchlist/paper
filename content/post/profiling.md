@@ -9,7 +9,7 @@ showToc: true
 TocOpen: false
 draft: false
 hidemeta: false
-comments: false
+comments: true
 description: "Bagaimana cara melakukan pengukuran kinerja aplikasi golang menggunakan profiling pprof."
 disableHLJS: false # to disable highlightjs
 disableShare: false

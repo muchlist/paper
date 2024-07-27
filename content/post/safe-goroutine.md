@@ -9,7 +9,7 @@ showToc: true
 TocOpen: false
 draft: false
 hidemeta: false
-comments: false
+comments: true
 description: "Cara efektif menghindari kesalahan yang bisa terjadi pada penggunaan goroutine."
 disableHLJS: true # to disable highlightjs
 disableShare: false

@@ -3,6 +3,7 @@ title: '{{ replace .File.ContentBaseName "-" " " | title }}'
 date: {{ .Date }}
 draft: true
 # weight: 1
+categories: ["Backend"]
 tags: ["first"]
 # aliases: ["/first"]
 author: "Muchlis"
@@ -36,6 +37,9 @@ editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
+# images:
+#   - image_01.png
+#   - image_02.png
 ---
 
 {{ replace .File.ContentBaseName "-" " " | title }}
