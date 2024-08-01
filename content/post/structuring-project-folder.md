@@ -26,10 +26,8 @@ ShareButtons: ["linkedin", "x", "facebook", "whatsapp", "telegram"]
 UseHugoToc: true
 # canonicalURL: "https://canonical.url/to/page"
 cover:
-    # image: "<image path/url>" # image path/url
-    # alt: "<alt text>" # alt text
-    # caption: "<text>" # display caption under cover
-    # relative: false # when using page bundles set this to true
+    image: "/img/project/hexagonal-architecture.webp" # image path/url
+    alt: "hexagonal architecture"
     hidden: true # only hide on current single page
 editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
@@ -59,9 +57,15 @@ Link Repository : [https://github.com/muchlist/templaterepo](https://github.com/
 - Manajemen Dependensi yang Efektif: Menghindari error siklus dependensi meskipun ada banyak modul yang saling terhubung, melalui penerapan prinsip dependency inversion.
 - Kode yang Testable: Memastikan bahwa kode di lapisan logika dapat diuji dengan baik, meningkatkan kualitas dan keandalan aplikasi.
 
-Arsitektur heksagonal berfokus pada pemisahan core logika dari ketergantungan eksternal. Core harus bersih, hanya terdiri dari pustaka standar dan kode pembungkus yang dibangun dalam repositori ini.
+### Konseptual Hexagonal Architecture
 
-Istilah `core` dapat diganti dengan `service` atau `usecase`, sedangkan `port` dengan `storer`. Pada dasarnya port adalah sebuah inteface.
+{{< zoom-image src="/img/project/hexagonal-architecture.webp" title="" alt="hexagonal architecture golang" >}}
+
+Arsitektur hexagonal (biasa disebut juga port and adapter) berfokus pada pemisahan core logika dari ketergantungan eksternal. Core harus bersih, hanya terdiri dari pustaka standar dan kode pembungkus yang dibangun dalam repositori ini.
+
+- `Core` : Berisi logika bisnis aplikasi.
+- `Ports` : Antarmuka yang mendefinisikan bagaimana bagian luar sistem dapat berinteraksi dengan core. Ports bisa berupa antarmuka (interface) yang digunakan oleh core untuk berinteraksi dengan komponen eksternal seperti database, provider notifikasi, dll.
+- `Adapters` : Implementasi dari ports. Adapters menerapkan antarmuka yang didefinisikan oleh ports untuk menghubungkan core dengan komponen eksternal.
 
 ## Project structure
 
@@ -190,7 +194,7 @@ func NewUserService(store UserStorer, notifier NotifSender) *UserService {
 #### Menerapkan Prinsip Dependency Inversion: 
 Di lapisan business, terutama untuk bagian logic (biasanya dinamakan `service.go` atau `usecase.go` atau `core`), komunikasi antar layer mengandalkan abstraksi dan penerapan prinsip `dependency inversion` yang kuat. Dalam golang, dependensi inversi yang sesungguhnya bisa dicapai seperti penjelasan pada gambar berikut.  
 
-{{< zoom-image src="/img/project/invers-interface.png" title="" alt="dependency inversion interface golang" >}}
+{{< zoom-image src="/img/project/invers-interface.webp" title="" alt="dependency inversion interface golang" >}}
 
 Mengenai posisi interface, sebaiknya diletakkan pada modul yang membutuhkannya. Hal ini pernah dibahas dalam buku [100 Go Mistake and how to avoid them](https://www.manning.com/books/100-go-mistakes-and-how-to-avoid-them) dan beberapa buku lainnya.
 

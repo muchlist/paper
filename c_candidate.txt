@@ -26,6 +26,8 @@ Golang
 - Project : upload file and search by text
 - Pengalaman mengelola code base yang sulit dirubah. Pelajaran yang bisa diambil
 - Oauth2 PKCE
+- Kroki_io
+- gotenberg
 
 Flutter
 - Writing Granular Code in Flutter for Easy Switching Between State Management Solutions
