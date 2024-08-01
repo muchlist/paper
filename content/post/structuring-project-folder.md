@@ -64,7 +64,7 @@ Link Repository : [https://github.com/muchlist/templaterepo](https://github.com/
 Arsitektur hexagonal (biasa disebut juga port and adapter) berfokus pada pemisahan core logika dari ketergantungan eksternal. Core harus bersih, hanya terdiri dari pustaka standar dan kode pembungkus yang dibangun dalam repositori ini.
 
 - `Core` : Berisi logika bisnis aplikasi.
-- `Ports` : Antarmuka yang mendefinisikan bagaimana bagian luar sistem dapat berinteraksi dengan core. Ports bisa berupa antarmuka (interface) yang digunakan oleh core untuk berinteraksi dengan komponen eksternal seperti database, provider notifikasi, dll.
+- `Ports` : Kumpulan abstraksi yang mendefinisikan bagaimana bagian luar sistem dapat berinteraksi dengan core. Ports dapat berupa interface yang digunakan oleh core untuk berinteraksi dengan komponen eksternal seperti database, notifikasi provider, dll. Saya biasanya menggunakan idiom golang dalam memberikan nama kepada tipe interface ini seperti `storer`, `reader`, `saver`, `assumer`.
 - `Adapters` : Implementasi dari ports. Adapters menerapkan antarmuka yang didefinisikan oleh ports untuk menghubungkan core dengan komponen eksternal.
 
 ## Project structure
@@ -85,7 +85,7 @@ Arsitektur hexagonal (biasa disebut juga port and adapter) berfokus pada pemisah
 │   ├── complex
 │   │   ├── helper
 │   │   │   └── formula.go
-│   │   ├── ports
+│   │   ├── port
 │   │   │   └── storer.go
 │   │   ├── repo
 │   │   │   └── repo.go
