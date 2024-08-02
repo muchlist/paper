@@ -35,33 +35,24 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-Seringkali, program yang kita buat tidak hanya berupa server HTTP, tetapi juga mencakup komponen seperti event consumer, CLI, migrasi database dengan logika, atau kombinasi dari semuanya. Struktur ini saya gunakan untuk memungkinkan semua itu. Selain itu, fokus lainnya adalah pada pemisahan logika inti dari ketergantungan eksternal, sehingga memungkinkan penggunaan ulang kode dalam berbagai mode aplikasi.
+Seringkali, program golang yang kita buat tidak hanya berupa server Rest-API saja, tetapi juga mencakup fungsi lain seperti Event Consumer, Scheduller, CLI Program, Backfill Database, atau kombinasi dari semuanya. Pedoman project struktur ini dapat kita gunakan untuk memungkinkan semua itu. Struktur ini berfokus pada pemisahan logika inti dari ketergantungan eksternal, sehingga memungkinkan penggunaan ulang kode dalam berbagai mode aplikasi.
 
 Link Repository : [https://github.com/muchlist/templaterepo](https://github.com/muchlist/templaterepo)
 
 <!--more-->
 
-## Prinsip-prinsip yang mendasari desain ini :
-
-1. Arsitektur Hexagonal: Memisahkan logika inti dari ketergantungan eksternal untuk menjaga kebersihan kode dan memudahkan pengujian.
-2. Pengelolaan Dependensi: Menghindari error siklus dependensi dengan menerapkan prinsip dependency injection dan dependency inversion, sehingga modul-modul dapat saling berinteraksi tanpa saling bergantung secara langsung.
-3. Kejelasan Struktur Kode: Menggunakan folder `pkg/` untuk kode yang dapat digunakan ulang di berbagai bagian aplikasi dan folder `business/` untuk menyimpan logika bisnis dan domain khusus.
-4. Aturan Pengembangan Aplikasi: Menetapkan aturan untuk pengelolaan konfigurasi, penanganan kesalahan, dan penamaan untuk memastikan konsistensi dan kualitas kode.
-5. Alat Bantu: Memanfaatkan Makefile untuk mempercepat proses pengembangan dan pre-commit hooks untuk menjaga kualitas kode dan mencegah kesalahan sebelum kode di-commit.
-
-## Tujuan :  
+## Prinsip dan tujuan :
 
 - Konsistensi Pengembangan: Menyediakan metode yang seragam dalam membangun aplikasi untuk meningkatkan pemahaman dan kolaborasi tim.
 - Modularitas: Memastikan kode terpisah antar modul dan tidak tightly coupled, sehingga memudahkan pemeliharaan dan pengembangan lebih lanjut.
-- Arsitektur yang Bersih: Mengikuti prinsip arsitektur hexagonal untuk memisahkan logika inti dari ketergantungan eksternal, meningkatkan fleksibilitas dan kemudahan pengujian.
-- Manajemen Dependensi yang Efektif: Menghindari error siklus dependensi meskipun ada banyak modul yang saling terhubung, melalui penerapan prinsip dependency inversion.
-- Kode yang Testable: Memastikan bahwa kode di lapisan logika dapat diuji dengan baik, meningkatkan kualitas dan keandalan aplikasi.
+- Manajemen Dependensi yang Efektif: Dapat menghindari error siklus dependensi meskipun ada banyak modul yang saling terhubung, melalui penerapan prinsip dependency inversion.
+- Kode yang Testable: Menerapkan prinsip arsitektur Hexagonal untuk memisahkan logika inti dari ketergantungan eksternal, sehingga dapat meningkatkan fleksibilitas dan kemudahan pengujian.
 
 ### Konseptual Hexagonal Architecture
 
-{{< zoom-image src="/img/project/hexagonal-architecture.webp" title="" alt="hexagonal architecture golang" >}}
+Arsitektur hexagonal, juga dikenal sebagai arsitektur port dan adapter, berfokus pada pemisahan core logika dari ketergantungan eksternal. Pendekatan ini mendukung prinsip-prinsip desain yang telah disebutkan dengan memastikan bahwa core aplikasi tetap bersih dan terisolasi dari komponen eksternal.
 
-Arsitektur hexagonal (biasa disebut juga port and adapter) berfokus pada pemisahan core logika dari ketergantungan eksternal. Core harus bersih, hanya terdiri dari pustaka standar dan kode pembungkus yang dibangun dalam repositori ini.
+{{< zoom-image src="/img/project/hexagonal-architecture.webp" title="" alt="hexagonal architecture golang" >}}
 
 - `Core` : Berisi logika bisnis aplikasi.
 - `Ports` : Kumpulan abstraksi yang mendefinisikan bagaimana bagian luar sistem dapat berinteraksi dengan core. Ports dapat berupa interface yang digunakan oleh core untuk berinteraksi dengan komponen eksternal seperti database, notifikasi provider, dll. Saya biasanya menggunakan idiom golang dalam memberikan nama kepada tipe interface ini seperti `storer`, `reader`, `saver`, `assumer`.
