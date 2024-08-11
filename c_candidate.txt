@@ -28,6 +28,8 @@ Golang
 - Oauth2 PKCE
 - Kroki_io
 - gotenberg
+- https://github.com/fergusstrange/embedded-postgres
+- UUIDv4 UUIDv7 ULID
 
 Flutter
 - Writing Granular Code in Flutter for Easy Switching Between State Management Solutions

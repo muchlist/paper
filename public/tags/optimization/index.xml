@@ -6,8 +6,15 @@
     <description>Recent content in Optimization on Muchlis Dev</description>
     <generator>Hugo -- 0.126.2</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 20 Oct 2022 11:30:03 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 11 Aug 2024 13:57:10 +0800</lastBuildDate>
     <atom:link href="https://blog.muchlis.dev/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mengupas Kekurangan Pagination Menggunakan Limit Offset : Standard Pagination vs Cursor Pagination</title>
+      <link>https://blog.muchlis.dev/post/pagination/</link>
+      <pubDate>Sun, 11 Aug 2024 13:57:10 +0800</pubDate>
+      <guid>https://blog.muchlis.dev/post/pagination/</guid>
+      <description>Bagaimana cara paling optimal dalam melakukan pagination pada backend.</description>
+    </item>
     <item>
       <title>Teknik Profiling di Golang</title>
       <link>https://blog.muchlis.dev/post/profiling/</link>
