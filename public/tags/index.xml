@@ -2,87 +2,87 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Muchlis Dev</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://blog.muchlis.dev/tags/</link>
     <description>Recent content in Tags on Muchlis Dev</description>
     <generator>Hugo -- 0.126.2</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 27 Jul 2024 17:33:10 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Aug 2024 13:57:10 +0800</lastBuildDate>
+    <atom:link href="https://blog.muchlis.dev/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Best Practice</title>
-      <link>http://localhost:1313/tags/best-practice/</link>
+      <link>https://blog.muchlis.dev/tags/best-practice/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/best-practice/</guid>
+      <guid>https://blog.muchlis.dev/tags/best-practice/</guid>
       <description></description>
     </item>
     <item>
       <title>Database</title>
-      <link>http://localhost:1313/tags/database/</link>
+      <link>https://blog.muchlis.dev/tags/database/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/database/</guid>
+      <guid>https://blog.muchlis.dev/tags/database/</guid>
       <description></description>
     </item>
     <item>
       <title>Golang</title>
-      <link>http://localhost:1313/tags/golang/</link>
+      <link>https://blog.muchlis.dev/tags/golang/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/golang/</guid>
+      <guid>https://blog.muchlis.dev/tags/golang/</guid>
       <description></description>
     </item>
     <item>
       <title>Optimization</title>
-      <link>http://localhost:1313/tags/optimization/</link>
+      <link>https://blog.muchlis.dev/tags/optimization/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/optimization/</guid>
+      <guid>https://blog.muchlis.dev/tags/optimization/</guid>
       <description></description>
     </item>
     <item>
       <title>Best Practices</title>
-      <link>http://localhost:1313/tags/best-practices/</link>
+      <link>https://blog.muchlis.dev/tags/best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/best-practices/</guid>
+      <guid>https://blog.muchlis.dev/tags/best-practices/</guid>
       <description></description>
     </item>
     <item>
       <title>Context Management</title>
-      <link>http://localhost:1313/tags/context-management/</link>
+      <link>https://blog.muchlis.dev/tags/context-management/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/context-management/</guid>
+      <guid>https://blog.muchlis.dev/tags/context-management/</guid>
       <description></description>
     </item>
     <item>
       <title>Error Handling</title>
-      <link>http://localhost:1313/tags/error-handling/</link>
+      <link>https://blog.muchlis.dev/tags/error-handling/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/error-handling/</guid>
+      <guid>https://blog.muchlis.dev/tags/error-handling/</guid>
       <description></description>
     </item>
     <item>
       <title>Goroutine</title>
-      <link>http://localhost:1313/tags/goroutine/</link>
+      <link>https://blog.muchlis.dev/tags/goroutine/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/goroutine/</guid>
+      <guid>https://blog.muchlis.dev/tags/goroutine/</guid>
       <description></description>
     </item>
     <item>
       <title>Graceful Shutdown</title>
-      <link>http://localhost:1313/tags/graceful-shutdown/</link>
+      <link>https://blog.muchlis.dev/tags/graceful-shutdown/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/graceful-shutdown/</guid>
+      <guid>https://blog.muchlis.dev/tags/graceful-shutdown/</guid>
       <description></description>
     </item>
     <item>
       <title>Benchmark</title>
-      <link>http://localhost:1313/tags/benchmark/</link>
+      <link>https://blog.muchlis.dev/tags/benchmark/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/benchmark/</guid>
+      <guid>https://blog.muchlis.dev/tags/benchmark/</guid>
       <description></description>
     </item>
     <item>
       <title>Profiling</title>
-      <link>http://localhost:1313/tags/profiling/</link>
+      <link>https://blog.muchlis.dev/tags/profiling/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/profiling/</guid>
+      <guid>https://blog.muchlis.dev/tags/profiling/</guid>
       <description></description>
     </item>
   </channel>

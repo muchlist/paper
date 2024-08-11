@@ -1,6 +1,6 @@
 ---
-title: 'Standart Pagination vs Cursor Pagination'
-date: 2024-07-27T17:33:10+08:00
+title: 'Mengupas Kekurangan Pagination Menggunakan Limit Offset : Standard Pagination vs Cursor Pagination'
+date: 2024-08-11T13:57:10+08:00
 draft: false
 categories: ["Backend"]
 tags: ["Golang", "Database", "Optimization", "Best Practice"]
@@ -9,7 +9,7 @@ showToc: true
 TocOpen: false
 hidemeta: false
 comments: true
-description: 'Kekurangan Backend Pagination Menggunakan Limit, Offset, dan Total Count - Bagaimana cara paling optimal dalam melakukan pagination di sisi backend'
+description: 'Bagaimana cara paling optimal dalam melakukan pagination pada backend.'
 disableHLJS: true
 disableShare: false
 disableHLJS: false
@@ -45,13 +45,11 @@ Pagination memiliki beberapa manfaat, seperti:
 
 Namun, penting untuk diingat bahwa pagination tidak selalu menjadi solusi yang sempurna. Pada dataset yang sangat besar, teknik pagination dapat menghadapi tantangan yang akan menjadi sangat fatal dikemudian hari.
 
-## Masalah LIMIT OFFSET
+## LIMIT OFFSET Pagination
 
-Disini kita akan bahas kekurangan dari cara pagination menggunakan LIMIT OFFSET.
+Disini kita akan bahas kekurangan dari cara pagination menggunakan LIMIT OFFSET dan bagaimana cara meminimalisir kekurangan tersebut.
 
-### Isu Performa
-
-#### Mengapa LIMIT OFFSET Lambat untuk Dataset yang Besar?
+### Mengapa LIMIT OFFSET Lambat untuk Dataset yang Besar?
 
 Saat berhadapan dengan dataset yang sangat besar, pagination menggunakan LIMIT OFFSET seringkali mengalami penurunan performa. Ini karena setiap kali kita meminta halaman baru, database harus memindai seluruh tabel dari awal untuk menemukan data yang sesuai, meskipun kita hanya membutuhkan sebagian kecil data.
 
@@ -84,7 +82,7 @@ Contoh worst case untuk ini : Client ingin mendapatkan semua data dengan cara me
 
 Bayangkan kita ingin membaca sebuah buku yang sangat tebal halaman demi halaman. Jika kita menggunakan metode LIMIT dan OFFSET, kita harus membuka buku dari awal setiap kali ingin membaca halaman berikutnya. Ini tentu sangat tidak efisien, karena kita akan mengulang-ulang membuka halaman yang sama. Dalam konteks database, hal ini sama dengan membuat database bekerja lebih keras dari yang seharusnya. Oleh karena itu, jika tujuannya adalah mendapatkan `semua data`, lebih baik kita langsung mengambil seluruh buku (data) sekaligus tanpa pagination, lalu membacanya (memprosesnya) di aplikasi.
 
-#### Dampak Query COUNT(*) terhadap Performa
+### Dampak Query COUNT(*) terhadap Performa
 
 Tidak hanya itu, dalam implementasi pagination menggunakan LIMIT dan OFFSET, query COUNT(*) sering digunakan untuk menghitung jumlah total baris dalam dataset. Informasi ini diperlukan untuk menyusun metadata pagination, seperti jumlah total halaman dan jumlah total item, yang kemudian dikembalikan dalam respon API.
 
@@ -110,11 +108,11 @@ Untuk menghasilkan metadata ini, backend perlu melakukan dua query:
 
 1. Untuk mengambil data dengan LIMIT dan OFFSET
 ```sql
-SELECT * FROM members LIMIT 100 OFFSET 0;
+SELECT * FROM users LIMIT 100 OFFSET 0;
 ```
 2. Untuk menghitung jumlah total baris dengan COUNT(*)
 ```sql
-SELECT COUNT(*) FROM members;
+SELECT COUNT(*) FROM users;
 ```
 
 Kejutannya, Penggunaan COUNT(*) pada dataset yang besar dapat mengakibatkan penurunan performa yang signifikan. Hal ini dikarenakan:
@@ -125,7 +123,7 @@ Kejutannya, Penggunaan COUNT(*) pada dataset yang besar dapat mengakibatkan penu
 
 Masalah ini mungkin tidak terlihat jelas pada awal pengembangan, tetapi akan semakin terasa ketika volume data terus bertambah. Pengalaman saya mendorong saya untuk menulis artikel ini. Dalam kasus saya, perubahan ini tidak gampang untuk dilakukan karena API sudah terlanjur dikonsumsi service lainnya, maka dari itu saya sangat merekomendasikan agar dapat menentukannya teknik pagination yang paling sesuai sejak awal pengembangan. Teknik alternatif dan optimasi dapat menjadi solusi yang baik untuk mengatasinya.
 
-#### Optimasi Database Query LIMIT OFFSET
+### Optimasi Database Query LIMIT OFFSET
 
 Dalam studi kasus ini ternyata query untuk pagination dengan LIMIT OFFSET masih dapat dioptimalkan, namun query count belum tentu. Sehingga pilihan yang paling tepat adalah mengganti strategy ke pagination alternative.
 
@@ -134,54 +132,54 @@ Teknik ini justru saya temukan di library yang digunakan pada bahasa lain, PHP L
 Apa yang dilakukan untuk membuat peformanya menjadi lebih baik ?
 
 ```sql
-select * from members              -- The full data that you want to show your users.
-    where members.id in (          -- The "deferred join" or subquery, in our case.
-        select id from members     -- The pagination, accessing as little data as possible - ID only.
+select * from users              -- The full data that you want to show your users.
+    where users.id in (          -- The "deferred join" or subquery, in our case.
+        select id from users     -- The pagination, accessing as little data as possible - ID only.
         limit 15 offset 150000      
     )
 ```
 
 Idenya adalah agar melakukan penerapan LIMIT dan OFFSET pada data yang scopenya lebih kecil, baru kemudian hasilnya dicari untuk membuat data yang lengkap.
 
-Sayangnya, teknik optimasi pada query LIMIT OFFSET tidak sepenuhnya menyelesaikan masalah yang saya alami, terutama untuk query COUNT(*) pada dataset besar. Hal ini terlihat pada hasil benchmark yang saya lakukan.
+Sayangnya, teknik optimasi pada query LIMIT OFFSET tidak sepenuhnya menyelesaikan masalah yang saya alami, terutama untuk query COUNT(*) pada dataset besar. Hal ini terlihat pada hasil monitoring yang saya lakukan.
 
 {{< zoom-image src="/img/pagination/jaeger-trace-query-count.webp" title="" alt="jaeger trace query count" >}}
 
-Meskipun visualisasi data yang lengkap belum dapat saya sajikan pada artikel ini, hasil benchmark menunjukkan perbedaan kinerja yang signifikan antara query untuk mengambil data dan query COUNT(*).
+Meskipun visualisasi data yang lengkap belum dapat saya sajikan pada artikel ini, hasil monitoring menunjukkan perbedaan kinerja yang signifikan antara query untuk mengambil data dan query COUNT(*).
 
 Dari studi kasus ini, saya menarik beberapa kesimpulan penting:
 - `Jumlah N query tidak selalu menentukan kinerja`: Tidak selalu benar bahwa semakin sedikit permintaan query yang kita jalankan, semakin baik performanya. Dalam beberapa kasus, membagi query kompleks menjadi beberapa query yang lebih kecil justru dapat meningkatkan kinerja secara keseluruhan.
 - `Indeks tidak selalu optimal untuk COUNT(*)`: Meskipun indeks dapat meningkatkan kinerja query secara umum, pada kasus COUNT(*) indeks tidak selalu efektif.
-- `Pentingnya benchmark`: Membandingkan kinerja sebelum dan sesudah perubahan query adalah cara yang paling akurat untuk mengukur dampak dari suatu optimasi.
+- `Pentingnya benchmark`: Membandingkan kinerja sebelum dan sesudah perubahan query adalah cara yang paling akurat untuk mengukur dampak dari suatu optimasi. Karena beda query dan struktur datanya, bisa jadi memerlukan cara optimasi yang berbeda pula.
 
 
-## Alternatif Limit Offset ?
+## Alternatif Limit Offset ? Cursor
 
-### Cursor-based Pagination
+### Penjelasan Cursor-based Pagination
 
 Cursor-based pagination menggunakan nilai unik dari suatu kolom (biasanya kolom yang diurutkan) sebagai "cursor" untuk menandai posisi saat ini dalam hasil query. Alih-alih menggunakan offset, kita mengirimkan cursor dari hasil sebelumnya untuk mendapatkan halaman berikutnya. Ini lebih efisien karena database dapat melompati nilai dan hanya perlu mencari rekaman yang memiliki nilai cursor lebih besar dari nilai cursor sebelumnya.
 
 ```sql
-SELECT * FROM members
+SELECT * FROM users
 WHERE sort_column > 'cursor_value'
 ORDER BY sort_column
 LIMIT 10;
 ```
 
-#### Kelebihan Cursor-based Pagination:
+#### Kelebihan Cursor-based Pagination
 
 - `Performa lebih baik`: Tidak perlu memindai seluruh tabel untuk setiap permintaan halaman.
 - `Hasil yang konsisten`: Hasil query selalu sama, terlepas dari perubahan data yang terjadi di antara permintaan. Misalnya pagination pada LIMIT OFFSET akan tidak konsisten jika data pada halaman sebelumnya ada yang dihapus.
 - `UX infinity Loading`: Cursor pagination sangat cocok untuk user experience web dan mobile yang biasanya menerapkan infinity loading.
 
-#### Kekurangan Cursor-based Pagination:
+#### Kekurangan Cursor-based Pagination
 
 - `Implementasi lebih kompleks`: Membutuhkan perencanaan yang matang dalam memilih kolom cursor yang tepat.
 - `Tidak cocok untuk semua jenis query dan UX`: Hanya efektif untuk query yang diurutkan berdasarkan satu atau beberapa kolom.
 - `Statefull`: Karna harus meneruskan cursor
 - `Sorting menyatu dengan cursor`: Bahwa urutan data yang ditampilkan selalu berbanding lurus dengan cursor yang digunakan.
 
-#### Contoh Implementasi:
+### Contoh Implementasi
 
 Sebagai contoh, respon API dengan cursor pagination mungkin memiliki struktur sebagai berikut:
 
@@ -265,6 +263,7 @@ func (r *repo) FetchUserByUlid(ctx context.Context, cursorID string, limit uint6
 ```
 
 **Service Layer :**  
+Pada service layer, terdapat logic dimana kita harus mendapatkan data lebih daripada yang akan ditampilkan untuk mengetahui apakah data selanjutnya itu ada atau tidak.
 
 ```go
 func (s *Service) FetchAllUsersWithCursor(ctx context.Context, cursor string, limit uint64) ([]entity.User, *string /*next cursor*/, error) {
@@ -322,11 +321,16 @@ Dengan asumsi menggunakan Clean Architecture atau Hexagonal Architecture
 
 Pada contoh code datas tersisa layer HTTP Handler yang bertugas sebagai View, dimana layer tersebut yang bertanggung jawab membuat value-value lain hasil dari proses layer service seperti menyimpan sementara `current_cursor`, membuat nilai `next_page` dari return value FetchAllUsersWithCursor() dan berbagai value lain untuk response yang memerlukan Framework HTTP Handler.
 
-Berikut diatas adalah contoh implementasi cursor pagination sehingga kita mendapatkan sedikit gambaran tentang kerumitannya. Pun pada code diatas saya sengaja melewatkan beberapa hal berikut karena bersifat optional.
-- Previous Page atau page sebelumnya memerlukan implementasi yang berkebalikan pada Query SQL. Alih alih menggunakan `WHERE id > $1` , menjadi `WHERE id < $1` dengan cursor adalah value pertama dari current data.
-- Adanya kemungkinan cursor yang memerlukan 2 key dan seterusnya
+Tadi adalah contoh implementasi cursor pagination yang disederhanakan sehingga kita mendapatkan sedikit gambaran tentang kerumitannya. Pun pada code diatas saya sengaja melewatkan beberapa hal berikut karena bersifat optional.
+- Previous_Page memerlukan implementasi yang berkebalikan pada Query SQL. Alih alih menggunakan cursor dan order default `WHERE id > $1 ORDER BY id DESC`, menjadi `WHERE id < $1 ORDER BY id ASC` dengan cursor adalah value pertama dari data yang ditampilkan pada current page.
+- Adanya kemungkinan cursor dan urutan yang memerlukan 2 key bahkan lebih.
+- Validasi value yang lebih ketat untuk tipe Cursor dan OrderBy.
 
-### Seek Method
+**Benchmark :**  
+TODO: masukkan hasil benchmark.
 
-Explanation of the seek method for pagination.
-Advantages: More efficient for certain types of queries.
+---
+
+Limit-Offset Pagination memiliki keunggulan berupa kemudahan implementasi, dengan kelemahan yang hanya akan dirasakan ketika aplikasi kita mencapai level dimana jumlah data menjadi sangat besar. Di sisi lain, Cursor-Based Pagination sedikit lebih rumit untuk diimplementasikan dan memiliki keterbatasan tertentu.
+
+Namun, berbicara tentang `Premature Optimization`, menghindari kesalahan sejak awal bukan berarti buruk loh. Justru, mengambil keputusan arsitektur dan desain yang optimal, seperti memilih Cursor-Based Pagination daripada Limit-Offset, dapat dianggap sebagai pengambilan keputusan yang bijak, bukan sekadar premature optimization. Pada intinya, memahami trade-off dari setiap pilihan dan memilih solusi yang tepat untuk kebutuhan spesifik adalah pendekatan yang lebih tepat dalam pengembangan perangkat lunak.

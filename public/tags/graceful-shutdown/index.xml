@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Graceful Shutdown on Muchlis Dev</title>
-    <link>http://localhost:1313/tags/graceful-shutdown/</link>
+    <link>https://blog.muchlis.dev/tags/graceful-shutdown/</link>
     <description>Recent content in Graceful Shutdown on Muchlis Dev</description>
     <generator>Hugo -- 0.126.2</generator>
     <language>en</language>
     <lastBuildDate>Mon, 26 Dec 2022 11:30:03 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/graceful-shutdown/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.muchlis.dev/tags/graceful-shutdown/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kesalahan Umum dalam Penggunaan Golang Goroutine</title>
-      <link>http://localhost:1313/post/safe-goroutine/</link>
+      <link>https://blog.muchlis.dev/post/safe-goroutine/</link>
       <pubDate>Mon, 26 Dec 2022 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/post/safe-goroutine/</guid>
+      <guid>https://blog.muchlis.dev/post/safe-goroutine/</guid>
       <description>Cara efektif menghindari kesalahan yang bisa terjadi pada penggunaan goroutine.</description>
     </item>
   </channel>
