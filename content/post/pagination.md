@@ -1,5 +1,5 @@
 ---
-title: 'Mengupas Kekurangan Pagination Menggunakan Limit Offset : Standard Pagination vs Cursor Pagination'
+title: 'Optimisasi Pagination: Mengapa Limit-Offset Pagination Bisa Menjadi Bom Waktu dan Bagaimana Cursor Pagination Menjadi Solusinya'
 date: 2024-08-11T13:57:10+08:00
 draft: false
 categories: ["Backend"]
@@ -9,7 +9,7 @@ showToc: true
 TocOpen: false
 hidemeta: false
 comments: true
-description: 'Bagaimana cara paling optimal dalam melakukan pagination pada backend.'
+description: 'Membandingkan metode paling optimal dalam penerapan pagination pada backend golang. Implementasi Cursor Based Pagination.'
 disableHLJS: true
 disableShare: false
 disableHLJS: false
@@ -24,6 +24,8 @@ ShowShareButtons: true
 ShareButtons: ["linkedin", "x", "facebook", "whatsapp", "telegram"]
 UseHugoToc: true
 cover:
+    image: "/img/pagination/pagination-performance.webp"
+    alt: "benchmark pagination performance"
     hidden: true # only hide on current single page
 editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
@@ -125,7 +127,7 @@ Masalah ini mungkin tidak terlihat jelas pada awal pengembangan, tetapi akan sem
 
 ### Optimasi Database Query LIMIT OFFSET
 
-Dalam studi kasus ini ternyata query untuk pagination dengan LIMIT OFFSET masih dapat dioptimalkan, namun query count belum tentu. Sehingga pilihan yang paling tepat adalah mengganti strategy ke pagination alternative.
+Dalam studi kasus ini ternyata query untuk pagination dengan LIMIT OFFSET dapat dioptimalkan, namun query SELECT COUNT belum tentu dapat dioptimalkan.
 
 Bagaimana cara mengoptimalkan query LIMIT OFFSET ?
 Teknik ini justru saya temukan di library yang digunakan pada bahasa lain, PHP Laravel. yang dapat dicontoh pada library ini : https://github.com/hammerstonedev/fast-paginate
@@ -140,17 +142,18 @@ select * from users              -- The full data that you want to show your use
 ```
 
 Idenya adalah agar melakukan penerapan LIMIT dan OFFSET pada data yang scopenya lebih kecil, baru kemudian hasilnya dicari untuk membuat data yang lengkap.
+Scope ini juga bisa diperkecil dengan penerapan range seperti filter range di bulan tertentu dan seterusnya.
 
-Sayangnya, teknik optimasi pada query LIMIT OFFSET tidak sepenuhnya menyelesaikan masalah yang saya alami, terutama untuk query COUNT(*) pada dataset besar. Hal ini terlihat pada hasil monitoring yang saya lakukan.
+Sayangnya, teknik optimasi pada query LIMIT OFFSET ini tidak sepenuhnya menyelesaikan masalah yang saya alami, terutama untuk query COUNT(*) pada dataset besar. Hal ini terlihat pada hasil monitoring yang saya lakukan.
 
 {{< zoom-image src="/img/pagination/jaeger-trace-query-count.webp" title="" alt="jaeger trace query count" >}}
 
-Meskipun visualisasi data yang lengkap belum dapat saya sajikan pada artikel ini, hasil monitoring menunjukkan perbedaan kinerja yang signifikan antara query untuk mengambil data dan query COUNT(*).
+Hasil monitoring menunjukkan perbedaan kinerja yang signifikan antara `query untuk mengambil data` vs `query COUNT(*)`, Khususnya ketika banyak request yang masuk secara bersamaan.
 
 Dari studi kasus ini, saya menarik beberapa kesimpulan penting:
-- `Jumlah N query tidak selalu menentukan kinerja`: Tidak selalu benar bahwa semakin sedikit permintaan query yang kita jalankan, semakin baik performanya. Dalam beberapa kasus, membagi query kompleks menjadi beberapa query yang lebih kecil justru dapat meningkatkan kinerja secara keseluruhan.
+- `Jumlah N query tidak selalu menentukan kinerja`: Tidak selalu benar bahwa semakin sedikit jumlah permintaan query yang kita jalankan, semakin baik performanya. Dalam beberapa kasus, membagi query kompleks menjadi beberapa query yang lebih kecil justru dapat meningkatkan kinerja secara keseluruhan.
 - `Indeks tidak selalu optimal untuk COUNT(*)`: Meskipun indeks dapat meningkatkan kinerja query secara umum, pada kasus COUNT(*) indeks tidak selalu efektif.
-- `Pentingnya benchmark`: Membandingkan kinerja sebelum dan sesudah perubahan query adalah cara yang paling akurat untuk mengukur dampak dari suatu optimasi. Karena beda query dan struktur datanya, bisa jadi memerlukan cara optimasi yang berbeda pula.
+- `Pentingnya benchmarking`: Membandingkan kinerja sebelum dan sesudah perubahan query adalah cara yang paling akurat untuk mengukur dampak dari suatu optimasi. Karena beda query dan struktur datanya, bisa jadi memerlukan cara optimasi yang berbeda pula.
 
 
 ## Alternatif Limit Offset ? Cursor
@@ -232,7 +235,7 @@ func (r *repo) FetchUserByUlid(ctx context.Context, cursorID string, limit uint6
         sqlStatement = `
             SELECT id, name
             FROM users
-            WHERE id > $1
+            WHERE id < $1
             ORDER BY id DESC
             LIMIT $2;
         `
@@ -281,7 +284,7 @@ func (s *Service) FetchAllUsersWithCursor(ctx context.Context, cursor string, li
     // Menentukan cursor selanjutnya
     var nextCursor *string
     if len(results) > int(limit) {
-        nextCursorID := results[limit].ID // Set cursor apabila ditemukan data lebih dari limit
+        nextCursorID := results[limit-1].ID // Set cursor apabila ditemukan data lebih dari limit
         nextCursor = &nextCursorID
         results = results[:limit] // Hapus data yang kelebihan
     } else {
@@ -322,15 +325,29 @@ Dengan asumsi menggunakan Clean Architecture atau Hexagonal Architecture
 Pada contoh code datas tersisa layer HTTP Handler yang bertugas sebagai View, dimana layer tersebut yang bertanggung jawab membuat value-value lain hasil dari proses layer service seperti menyimpan sementara `current_cursor`, membuat nilai `next_page` dari return value FetchAllUsersWithCursor() dan berbagai value lain untuk response yang memerlukan Framework HTTP Handler.
 
 Tadi adalah contoh implementasi cursor pagination yang disederhanakan sehingga kita mendapatkan sedikit gambaran tentang kerumitannya. Pun pada code diatas saya sengaja melewatkan beberapa hal berikut karena bersifat optional.
-- Previous_Page memerlukan implementasi yang berkebalikan pada Query SQL. Alih alih menggunakan cursor dan order default `WHERE id > $1 ORDER BY id DESC`, menjadi `WHERE id < $1 ORDER BY id ASC` dengan cursor adalah value pertama dari data yang ditampilkan pada current page.
+- Previous_Page memerlukan implementasi yang berkebalikan pada Query SQL. Alih alih menggunakan cursor dan order default `WHERE id < $1 ORDER BY id DESC`, menjadi `WHERE id > $1 ORDER BY id ASC` dengan cursor adalah value pertama dari data yang ditampilkan pada current page.
 - Adanya kemungkinan cursor dan urutan yang memerlukan 2 key bahkan lebih.
 - Validasi value yang lebih ketat untuk tipe Cursor dan OrderBy.
 
-**Benchmark :**  
-TODO: masukkan hasil benchmark.
+### Benchmark :
+
+{{< zoom-image src="/img/pagination/pagination-performance.webp" title="" alt="pagination performance comparison" >}}
+
+**Analisis:**
+- Limit-Offset Pagination memiliki waktu respon yang mulai meningkat signifikan setelah halaman ke-50, menunjukkan skala yang buruk untuk dataset besar.
+- Limit-Offset + Query Count Pagination Sedikit lebih lambat dari Limit-Offset tanpa Query Count, yang menunjukkan adanya overhead tambahan.
+- Cursor Pagination paling efisien dan stabil, cocok untuk dataset besar dengan jumlah halaman yang banyak.
+
+
+**Catatan :**
+- Secara teori, kita dapat memperkirakan metode mana yang lebih unggul. Benchmark ini mengonfirmasi hal tersebut.
+- Komparasi ini membandingkan semua metode menggunakan spesifikasi dan kondisi yang seragam. Latensi jaringan dapat mempengaruhi hasil, tetapi ketiga metode mengalami latensi jaringan yang serupa.
+- Data yang digunakan mencakup 100.000 entri dengan percobaan pagination ekstrem pada 1.000 entri per halaman.
+- Pengujian ini tidak mempertimbangkan faktor lain yang penting seperti penggunaan memori dan CPU pada database, yang juga mempengaruhi kinerja secara keseluruhan.
 
 ---
 
-Limit-Offset Pagination memiliki keunggulan berupa kemudahan implementasi, dengan kelemahan yang hanya akan dirasakan ketika aplikasi kita mencapai level dimana jumlah data menjadi sangat besar. Di sisi lain, Cursor-Based Pagination sedikit lebih rumit untuk diimplementasikan dan memiliki keterbatasan tertentu.
+`Limit-Offset Pagination` memiliki keunggulan berupa kemudahan implementasi, dengan kelemahan yang hanya akan dirasakan ketika aplikasi kita mencapai level dimana jumlah data menjadi sangat besar. Kelemahan ini juga bisa diatasi dengan cara memberikan indexed range data yang sudah ditentukan kepada user (seperti saat menampilkan data transaksi bank yang wajib menentukan bulannya).  
+Di sisi lain, walaupun lebih cepat dan stabil, `Cursor-Based Pagination` sedikit lebih rumit untuk diimplementasikan dan memiliki keterbatasan tertentu yang mungkin membuatnya kurang cocok untuk semua jenis kasus.
 
-Namun, berbicara tentang `Premature Optimization`, menghindari kesalahan sejak awal bukan berarti buruk loh. Justru, mengambil keputusan arsitektur dan desain yang optimal, seperti memilih Cursor-Based Pagination daripada Limit-Offset, dapat dianggap sebagai pengambilan keputusan yang bijak, bukan sekadar premature optimization. Pada intinya, memahami trade-off dari setiap pilihan dan memilih solusi yang tepat untuk kebutuhan spesifik adalah pendekatan yang lebih tepat dalam pengembangan perangkat lunak.
+Pepatah `premature optimization is the root of all evil` mengingatkan kita bahwa optimasi yang terlalu dini bisa menjadi masalah, namun disini menurut saya pribadi, menghindari kesalahan sejak awal bukan berarti hal yang buruk juga. Justru, mengambil keputusan arsitektur dan desain yang optimal, seperti memilih `Cursor-Based Pagination` daripada `Limit-Offset`, dapat dianggap sebagai pengambilan keputusan yang bijak, bukan sekadar premature optimization. Pada intinya, memahami trade-off dari setiap pilihan dan memilih solusi yang tepat untuk kebutuhan spesifik adalah pendekatan yang lebih tepat dalam pengembangan perangkat lunak.
