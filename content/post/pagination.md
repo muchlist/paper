@@ -324,7 +324,7 @@ Dengan asumsi menggunakan Clean Architecture atau Hexagonal Architecture
 
 ```
 
-Pada contoh code datas tersisa layer HTTP Handler yang bertugas sebagai View, dimana layer tersebut yang bertanggung jawab membuat value-value lain hasil dari proses layer service seperti menyimpan sementara `current_cursor`, membuat nilai `next_page` dari return value FetchAllUsersWithCursor() dan berbagai value lain untuk response yang memerlukan Framework HTTP Handler.
+Pada contoh code di atas tersisa layer HTTP Handler yang bertugas sebagai View, dimana layer tersebut yang bertanggung jawab membuat value-value lain hasil dari proses layer service seperti menyimpan sementara `current_cursor`, membuat nilai `next_page` dari return value FetchAllUsersWithCursor() dan berbagai value lain untuk response yang memerlukan Framework HTTP Handler.
 
 Tadi adalah contoh implementasi cursor pagination yang disederhanakan sehingga kita mendapatkan sedikit gambaran tentang kerumitannya. Pun pada code diatas saya sengaja melewatkan beberapa hal berikut karena bersifat optional.
 - Previous_Page memerlukan implementasi yang berkebalikan pada Query SQL. Alih alih menggunakan cursor dan order default `WHERE id < $1 ORDER BY id DESC`, menjadi `WHERE id > $1 ORDER BY id ASC` dengan cursor adalah value pertama dari data yang ditampilkan pada current page.
