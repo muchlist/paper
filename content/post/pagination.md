@@ -340,10 +340,12 @@ Tadi adalah contoh implementasi cursor pagination yang disederhanakan sehingga k
 
 
 **Catatan :**
-- Secara teori, kita dapat memperkirakan metode mana yang lebih unggul. Benchmark ini mengonfirmasi hal tersebut.
-- Komparasi ini membandingkan semua metode menggunakan spesifikasi dan kondisi yang seragam. Latensi jaringan dapat mempengaruhi hasil, tetapi ketiga metode mengalami latensi jaringan yang serupa.
-- Data yang digunakan mencakup 100.000 entri dengan percobaan pagination ekstrem pada 1.000 entri per halaman.
-- Pengujian ini tidak mempertimbangkan faktor lain yang penting seperti penggunaan memori dan CPU pada database, yang juga mempengaruhi kinerja secara keseluruhan.
+- Komparasi ini membandingkan semua metode menggunakan spesifikasi dan kondisi yang seragam. Latensi jaringan, Struktur dan Jumlah data dapat mempengaruhi hasil. Jadi, cukup berpatokan pada perbandingannya saja, karena angkanya akan sangat bervariasi tergantung kondisi masing-masing.
+- Data yang digunakan mencakup 100_000 entri data user (pada umumnya) yang dijoin kan dengan 2 table kecil dengan percobaan pagination ekstrem pada 1_000 entri per halaman.
+- Pengujian dilakukan secara sequensial, page per page. 
+- Pengujian ini tidak menyertakan faktor lain yang sebenarnya penting seperti penggunaan memori, CPU, Row yang dikomputasi pada database. 
+- Disini saya berusaha membuat effort seminimal mungkin.
+- Secara teori saja sebenarnya kita dapat memperkirakan metode mana yang lebih unggul. Benchmark ini mengonfirmasi hal tersebut.
 
 ---
 
