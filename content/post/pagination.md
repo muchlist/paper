@@ -1,5 +1,5 @@
 ---
-title: 'Optimisasi Pagination: Mengapa Limit-Offset Pagination Bisa Menjadi Bom Waktu dan Bagaimana Cursor Pagination Menjadi Solusinya'
+title: 'Optimisasi Pagination: Mengapa Limit-Offset Bisa Menjadi Bom Waktu dan Cursor Pagination Menjadi Solusinya'
 date: 2024-08-11T13:57:10+08:00
 draft: false
 categories: ["Backend"]
@@ -33,7 +33,7 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-Pagination adalah teknik dalam membagi hasil query database menjadi bagian-bagian yang lebih kecil. Menggunakan Query LIMIT OFFSET adalah metode yang paling umum digunakan. Namun, metode ini ternyata memiliki beberapa kelemahan, terutama dalam hal performa pada dataset yang sangat besar. Artikel ini akan membahas masalah-masalah yang sering muncul saat menggunakan LIMIT OFFSET dan mengeksplorasi alternatif yang lebih efisien, seperti cursor-based pagination dan seek method.
+Pagination adalah teknik dalam membagi hasil query database menjadi bagian-bagian yang lebih kecil. Menggunakan Query LIMIT OFFSET adalah metode yang paling umum digunakan. Namun, metode ini ternyata memiliki beberapa kelemahan, terutama dalam hal performa pada dataset yang sangat besar. Artikel ini akan membahas masalah-masalah yang akan muncul saat menggunakan LIMIT OFFSET dan mengeksplorasi alternatif yang lebih efisien, seperti cursor-based pagination dan seek method.
 
 <!--more-->
 
@@ -123,13 +123,11 @@ Kejutannya, Penggunaan COUNT(*) pada dataset yang besar dapat mengakibatkan penu
 - `Masalah concurency dan locking`: Query COUNT(*) dapat menyebabkan lock dengan query lain dan menghambat kinerja sistem.
 - `Beban I/O yang tinggi`: Proses penghitungan jumlah baris memerlukan banyak operasi baca-tulis pada disk database.
 
-Masalah ini mungkin tidak terlihat jelas pada awal pengembangan, tetapi akan semakin terasa ketika volume data terus bertambah. Pengalaman saya mendorong saya untuk menulis artikel ini. Dalam kasus saya, perubahan ini tidak gampang untuk dilakukan karena API sudah terlanjur dikonsumsi service lainnya, maka dari itu saya sangat merekomendasikan agar dapat menentukannya teknik pagination yang paling sesuai sejak awal pengembangan. Teknik alternatif dan optimasi dapat menjadi solusi yang baik untuk mengatasinya.
+Masalah ini mungkin tidak terlihat jelas pada awal pengembangan, tetapi akan semakin terasa ketika volume data terus bertambah. Dalam kasus saya, perubahan ini tidak gampang untuk dilakukan karena API sudah terlanjur dikonsumsi service lainnya, maka dari itu saya sangat merekomendasikan agar dapat menentukannya teknik pagination yang paling sesuai sejak awal pengembangan. Teknik alternatif dan optimasi dapat menjadi solusi yang baik untuk mengatasinya.
 
 ### Optimasi Database Query LIMIT OFFSET
 
-Dalam studi kasus ini ternyata query untuk pagination dengan LIMIT OFFSET dapat dioptimalkan, namun query SELECT COUNT belum tentu dapat dioptimalkan.
-
-Bagaimana cara mengoptimalkan query LIMIT OFFSET ?
+Ternyata query untuk pagination dengan LIMIT OFFSET masih dapat dioptimalkan. Bagaimana caranya ?
 Teknik ini justru saya temukan di library yang digunakan pada bahasa lain, PHP Laravel. yang dapat dicontoh pada library ini : https://github.com/hammerstonedev/fast-paginate
 Apa yang dilakukan untuk membuat peformanya menjadi lebih baik ?
 
@@ -142,13 +140,17 @@ select * from users              -- The full data that you want to show your use
 ```
 
 Idenya adalah agar melakukan penerapan LIMIT dan OFFSET pada data yang scopenya lebih kecil, baru kemudian hasilnya dicari untuk membuat data yang lengkap.
-Scope ini juga bisa diperkecil dengan penerapan range seperti filter range di bulan tertentu dan seterusnya.
 
-Sayangnya, teknik optimasi pada query LIMIT OFFSET ini tidak sepenuhnya menyelesaikan masalah yang saya alami, terutama untuk query COUNT(*) pada dataset besar. Hal ini terlihat pada hasil monitoring yang saya lakukan.
+Namun query `SELECT COUNT(*)` belum tentu dapat dioptimalkan. Jadi, teknik optimasi pada query `LIMIT OFFSET` ini tidak sepenuhnya menyelesaikan masalah yang saya alami, terutama untuk query `SELECT COUNT(*)` pada dataset besar. Hal ini terlihat pada hasil monitoring yang saya lakukan.
 
 {{< zoom-image src="/img/pagination/jaeger-trace-query-count.webp" title="" alt="jaeger trace query count" >}}
 
 Hasil monitoring menunjukkan perbedaan kinerja yang signifikan antara `query untuk mengambil data` vs `query COUNT(*)`, Khususnya ketika banyak request yang masuk secara bersamaan.
+
+Hal ini juga didukung oleh problem-problem serupa yang dibahas di internet seperti : 
+- https://stackoverflow.com/questions/55018986/postgresql-select-count-query-takes-long-time
+- https://www.reddit.com/r/PostgreSQL/comments/140b4xy/select_count_is_slow_in_large_tables/
+- https://tunghatbh.medium.com/postgresql-slow-count-query-c93c30792606
 
 Dari studi kasus ini, saya menarik beberapa kesimpulan penting:
 - `Jumlah N query tidak selalu menentukan kinerja`: Tidak selalu benar bahwa semakin sedikit jumlah permintaan query yang kita jalankan, semakin baik performanya. Dalam beberapa kasus, membagi query kompleks menjadi beberapa query yang lebih kecil justru dapat meningkatkan kinerja secara keseluruhan.
@@ -156,7 +158,7 @@ Dari studi kasus ini, saya menarik beberapa kesimpulan penting:
 - `Pentingnya benchmarking`: Membandingkan kinerja sebelum dan sesudah perubahan query adalah cara yang paling akurat untuk mengukur dampak dari suatu optimasi. Karena beda query dan struktur datanya, bisa jadi memerlukan cara optimasi yang berbeda pula.
 
 
-## Alternatif Limit Offset ? Cursor
+## Cursor ! Sebagai Alternatif dari Limit Offset
 
 ### Penjelasan Cursor-based Pagination
 
@@ -334,14 +336,14 @@ Tadi adalah contoh implementasi cursor pagination yang disederhanakan sehingga k
 {{< zoom-image src="/img/pagination/pagination-performance.webp" title="" alt="pagination performance comparison" >}}
 
 **Analisis:**
-- Limit-Offset Pagination memiliki waktu respon yang mulai meningkat signifikan setelah halaman ke-50, menunjukkan skala yang buruk untuk dataset besar.
-- Limit-Offset + Query Count Pagination Sedikit lebih lambat dari Limit-Offset tanpa Query Count, yang menunjukkan adanya overhead tambahan.
+- Limit-Offset Pagination memiliki waktu respon yang mulai meningkat signifikan setelah halaman ke-50 (artinya di kedalaman data 50_000), menunjukkan skala yang buruk untuk dataset besar.
+- Limit-Offset + Query Count Pagination (dijalankan bersamaan dengan goroutine) Sedikit lebih lambat dari Limit-Offset biasa, yang menunjukkan adanya overhead tambahan. Overhead tambahan dari count ini akan terasa ketika request dijalankan secara paralel. Sedangkan pengujian diatas dilakukan secara sequensial.
 - Cursor Pagination paling efisien dan stabil, cocok untuk dataset besar dengan jumlah halaman yang banyak.
 
 
 **Catatan :**
-- Komparasi ini membandingkan semua metode menggunakan spesifikasi dan kondisi yang seragam. Latensi jaringan, Struktur dan Jumlah data dapat mempengaruhi hasil. Jadi, cukup berpatokan pada perbandingannya saja, karena angkanya akan sangat bervariasi tergantung kondisi masing-masing.
-- Data yang digunakan mencakup 100_000 entri data user (pada umumnya) yang dijoin kan dengan 2 table kecil dengan percobaan pagination ekstrem pada 1_000 entri per halaman.
+- Komparasi ini membandingkan semua metode menggunakan spesifikasi dan kondisi yang seragam. Latensi jaringan, struktur dan jumlah data dapat mempengaruhi hasil. Jadi, cukup berpatokan pada perbandingannya saja, karena angkanya akan sangat bervariasi tergantung kondisi masing-masing.
+- Data yang digunakan mencakup 100_000 entri data user yang di left-join kan dengan 2 table kecil dengan percobaan pagination ekstrem pada 1_000 entri per halaman.
 - Pengujian dilakukan secara sequensial, page per page. 
 - Pengujian ini tidak menyertakan faktor lain yang sebenarnya penting seperti penggunaan memori, CPU, Row yang dikomputasi pada database. 
 - Disini saya berusaha membuat effort seminimal mungkin.
