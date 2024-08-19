@@ -1,5 +1,5 @@
 ---
-title: 'Optimisasi Pagination: Mengapa Limit-Offset Bisa Menjadi Bom Waktu dan Cursor Pagination Menjadi Solusinya'
+title: 'Optimasi Pagination: Mengapa Limit-Offset Bisa Menjadi Bom Waktu dan Cursor Pagination Menjadi Solusinya'
 date: 2024-08-11T13:57:10+08:00
 draft: false
 categories: ["Backend"]
