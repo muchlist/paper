@@ -80,13 +80,13 @@ Sebagai ilustrasi, asumsi jika 1 halaman menampilkan 100 data:
 
 Semakin besar nilai offset, semakin banyak baris yang perlu dipindai dan dibuang, yang membuat query semakin lambat dan tidak efisien. Ini menjadi sangat buruk untuk tabel dengan jutaan baris karena memproses dan membuang banyak data setiap kali ada permintaan halaman baru.
 
-Contoh worst case untuk ini : Client ingin mendapatkan semua data dengan cara melakukan scan dari page 1 sampai dengan page terakhir. melihat behaviornya, hal ini biasanya diperlukan oleh service.
+Contoh worst case untuk ini : Client ingin mendapatkan semua data dengan cara melakukan scan dari page 1 sampai dengan page terakhir. Melihat behaviornya, hal ini biasanya diperlukan oleh service lain yang menjadikan service kita sebagai data sourcenya.
 
 Bayangkan kita ingin membaca sebuah buku yang sangat tebal halaman demi halaman. Jika kita menggunakan metode LIMIT dan OFFSET, kita harus membuka buku dari awal setiap kali ingin membaca halaman berikutnya. Ini tentu sangat tidak efisien, karena kita akan mengulang-ulang membuka halaman yang sama. Dalam konteks database, hal ini sama dengan membuat database bekerja lebih keras dari yang seharusnya. Oleh karena itu, jika tujuannya adalah mendapatkan `semua data`, lebih baik kita langsung mengambil seluruh buku (data) sekaligus tanpa pagination, lalu membacanya (memprosesnya) di aplikasi.
 
 ### Dampak Query COUNT(*) terhadap Performa
 
-Tidak hanya itu, dalam implementasi pagination menggunakan LIMIT dan OFFSET, query COUNT(*) sering digunakan untuk menghitung jumlah total baris dalam dataset. Informasi ini diperlukan untuk menyusun metadata pagination, seperti jumlah total halaman dan jumlah total item, yang kemudian dikembalikan dalam respon API.
+Tidak hanya itu, dalam implementasi pagination menggunakan LIMIT dan OFFSET, query `SELECT COUNT(*)` sering digunakan untuk menghitung jumlah total baris dalam dataset. Informasi ini diperlukan untuk menyusun metadata pagination, seperti jumlah total halaman dan jumlah total item, yang kemudian dikembalikan dalam respon API.
 
 Sebagai contoh, respon API mungkin memiliki struktur sebagai berikut:
 
@@ -123,7 +123,7 @@ Kejutannya, Penggunaan COUNT(*) pada dataset yang besar dapat mengakibatkan penu
 - `Masalah concurency dan locking`: Query COUNT(*) dapat menyebabkan lock dengan query lain dan menghambat kinerja sistem.
 - `Beban I/O yang tinggi`: Proses penghitungan jumlah baris memerlukan banyak operasi baca-tulis pada disk database.
 
-Masalah ini mungkin tidak terlihat jelas pada awal pengembangan, tetapi akan semakin terasa ketika volume data terus bertambah. Dalam kasus saya, perubahan ini tidak gampang untuk dilakukan karena API sudah terlanjur dikonsumsi service lainnya, maka dari itu saya sangat merekomendasikan agar dapat menentukannya teknik pagination yang paling sesuai sejak awal pengembangan. Teknik alternatif dan optimasi dapat menjadi solusi yang baik untuk mengatasinya.
+Masalah ini mungkin tidak terlihat jelas pada awal pengembangan, tetapi akan semakin terasa ketika volume data terus bertambah. Maka dari itu saya sangat merekomendasikan agar kita dapat menentukannya teknik pagination yang paling sesuai sejak awal pengembangan. Teknik alternatif dan optimasi dapat menjadi solusi yang baik untuk mengatasinya.
 
 ### Optimasi Database Query LIMIT OFFSET
 
@@ -351,7 +351,7 @@ Tadi adalah contoh implementasi cursor pagination yang disederhanakan sehingga k
 
 ---
 
-`Limit-Offset Pagination` memiliki keunggulan berupa kemudahan implementasi, dengan kelemahan yang hanya akan dirasakan ketika aplikasi kita mencapai level dimana jumlah data menjadi sangat besar. Kelemahan ini juga bisa diatasi dengan cara memberikan indexed range data yang sudah ditentukan kepada user (seperti saat menampilkan data transaksi bank yang wajib menentukan bulannya).  
+`Limit-Offset Pagination` memiliki keunggulan berupa kemudahan implementasi, dengan kelemahan yang hanya akan dirasakan ketika aplikasi kita mencapai level dimana jumlah data menjadi sangat besar. Kelemahan ini juga bisa diatasi dengan cara memberikan indexed range dan filtering data yang sudah ditentukan kepada user (seperti saat menampilkan data transaksi bank yang wajib menentukan bulannya).  
 Di sisi lain, walaupun lebih cepat dan stabil, `Cursor-Based Pagination` sedikit lebih rumit untuk diimplementasikan dan memiliki keterbatasan tertentu yang mungkin membuatnya kurang cocok untuk semua jenis kasus.
 
 Pepatah `premature optimization is the root of all evil` mengingatkan kita bahwa optimasi yang terlalu dini bisa menjadi masalah, namun disini menurut saya pribadi, menghindari kesalahan sejak awal bukan berarti hal yang buruk juga. Justru, mengambil keputusan arsitektur dan desain yang optimal, seperti memilih `Cursor-Based Pagination` daripada `Limit-Offset`, dapat dianggap sebagai pengambilan keputusan yang bijak, bukan sekadar premature optimization. Pada intinya, memahami trade-off dari setiap pilihan dan memilih solusi yang tepat untuk kebutuhan spesifik adalah pendekatan yang lebih tepat dalam pengembangan perangkat lunak.
