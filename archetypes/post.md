@@ -11,7 +11,7 @@ author: "Muchlis"
 showToc: true
 TocOpen: false
 hidemeta: false
-comments: false
+comments: true
 description: '{{ replace .File.ContentBaseName "-" " " | title }}'
 disableHLJS: true # to disable highlightjs
 disableShare: false

@@ -9,7 +9,7 @@ author: "Muchlis"
 showToc: true
 TocOpen: false
 hidemeta: false
-comments: false
+comments: true
 description: 'Teknik tingkat mahir untuk menerapkan database transaction pada arsitektur yang modular'
 disableHLJS: true
 disableShare: false
