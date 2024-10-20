@@ -1,5 +1,5 @@
 ---
-title: 'Implementasi DB Transaction pada Logic Layer di Golang'
+title: 'Teknik Implementasi Database Transaction pada Logic Layer di Backend Golang'
 date: 2024-10-12T15:19:36+08:00
 draft: false
 # weight: 1

@@ -17,9 +17,6 @@
     <loc>https://blog.muchlis.dev/tags/golang/</loc>
     <lastmod>2024-10-12T15:19:36+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/db-transaction/</loc>
-    <lastmod>2024-10-12T15:19:36+08:00</lastmod>
-  </url><url>
     <loc>https://blog.muchlis.dev/</loc>
     <lastmod>2024-10-12T15:19:36+08:00</lastmod>
   </url><url>
@@ -27,6 +24,9 @@
     <lastmod>2024-10-12T15:19:36+08:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/</loc>
+    <lastmod>2024-10-12T15:19:36+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.muchlis.dev/post/db-transaction/</loc>
     <lastmod>2024-10-12T15:19:36+08:00</lastmod>
   </url><url>
     <loc>https://blog.muchlis.dev/tags/best-practice/</loc>
