@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Optimization on Muchlis Dev</title>
-    <link>https://blog.muchlis.dev/tags/optimization/</link>
+    <link>http://localhost:1313/tags/optimization/</link>
     <description>Recent content in Optimization on Muchlis Dev</description>
     <generator>Hugo -- 0.126.2</generator>
     <language>en</language>
     <lastBuildDate>Sun, 11 Aug 2024 13:57:10 +0800</lastBuildDate>
-    <atom:link href="https://blog.muchlis.dev/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Optimasi Pagination: Mengapa Limit-Offset Bisa Menjadi Bom Waktu dan Cursor Pagination Menjadi Solusinya</title>
-      <link>https://blog.muchlis.dev/post/pagination/</link>
+      <link>http://localhost:1313/post/pagination/</link>
       <pubDate>Sun, 11 Aug 2024 13:57:10 +0800</pubDate>
-      <guid>https://blog.muchlis.dev/post/pagination/</guid>
+      <guid>http://localhost:1313/post/pagination/</guid>
       <description>Membandingkan metode paling optimal dalam penerapan pagination pada backend golang. Implementasi Cursor Based Pagination.</description>
     </item>
     <item>
       <title>Teknik Profiling di Golang</title>
-      <link>https://blog.muchlis.dev/post/profiling/</link>
+      <link>http://localhost:1313/post/profiling/</link>
       <pubDate>Thu, 20 Oct 2022 11:30:03 +0000</pubDate>
-      <guid>https://blog.muchlis.dev/post/profiling/</guid>
+      <guid>http://localhost:1313/post/profiling/</guid>
       <description>Bagaimana cara melakukan pengukuran kinerja aplikasi golang menggunakan profiling pprof.</description>
     </item>
   </channel>
