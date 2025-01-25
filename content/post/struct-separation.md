@@ -1,16 +1,16 @@
 ---
-title: 'Mengapa Penting Memisahkan Entity dan Model dalam Pengembangan Aplikasi'
-date: 2025-01-16T14:55:17+08:00
+title: 'Memahami Pentingnya Memisahkan DTO, Entity dan Model dalam Pengembangan Aplikasi'
+date: 2025-01-26T00:49:17+08:00
 draft: false
 # weight: 1
 categories: ["Backend"]
-tags: ["first"]
+tags: ["golang", "Best Practices"]
 author: "Muchlis"
 showToc: true
 TocOpen: false
 hidemeta: false
 comments: true
-description: 'Struct Separation'
+description: 'Bagaimana pemisahan tanggung jawab antar struct dapat meningkatkan keamanan, keberlanjutan, dan efisiensi dalam pengembangan aplikasi.'
 disableHLJS: true
 disableShare: false
 disableHLJS: false
@@ -26,6 +26,7 @@ ShareButtons: ["linkedin", "x", "facebook", "whatsapp", "telegram"]
 UseHugoToc: true
 # canonicalURL: "https://canonical.url/to/page"
 cover:
+    image: "/img/struct-separation/struct-separation.webp" # image path/url
     hidden: true # only hide on current single page
 editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
@@ -33,7 +34,10 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-Dalam pengembangan API, terutama dengan Golang, sering kali kita menggunakan satu struktur data (struct) untuk berbagai keperluan, seperti representasi data di database sekaligus payload dalam request dan response API. Meskipun terlihat praktis, pendekatan ini sebenarnya dapat memunculkan masalah terkait keamanan dan pemeliharaan. Artikel ini akan membahas pentingnya memisahkan Entity dan Model dengan menerapkan prinsip Domain-Driven Design (DDD).
+Dalam pengembangan Aplikasi Golang, sering kali kita temukan satu struktur data (struct) yang dipakai untuk berbagai keperluan, 
+seperti representasi data di database sekaligus payload dalam request dan response API. 
+Meskipun terlihat praktis, pendekatan ini sebenarnya dapat memunculkan masalah terkait keamanan dan pemeliharaan. 
+Artikel ini akan membahas pentingnya memisahkan DTO, Entity dan Model dengan menerapkan sedikit prinsip Domain-Driven Design (DDD).
 
 <!--more-->
 
@@ -66,9 +70,11 @@ Domain-Driven Design (DDD) adalah metodologi pengembangan perangkat lunak yang b
 	}
 	```
 3. **Repository** : Menyembunyikan detail implementasi penyimpanan data. Struct model untuk database berfungsi sebagai media bantu untuk repository.
-4. **Application Service** : Menangani logika yang memerlukan interaksi dengan komponen eksternal atau layanan lainnya, dalam clean architecture ini sering disebut usecase dimana memerlukan interaksi ke repository atau api client pihak ketiga. Menghandle operasi-operasi yang tidak secara alami cocok dalam konteks Entity atau Value Object.
+4. **Application Service** : Menangani logika bisnis yang memerlukan interaksi dengan komponen eksternal atau layanan lainnya, dalam clean architecture ini sering disebut `usecase` atau `service`. 
+Menghandle operasi-operasi yang tidak secara alami cocok dalam konteks Entity atau Value Object.
 
-Sebenarnya masih banyak yang lain, Misalnya Value Object, Aggregate, Domain-Service dll. Namun kita ingin agar apa yang bisa diterapkan berada ditengah-tengah antara cukup baik untuk maintainability, tapi tidak menjadi terlalu rumit, jadi disini kita agak sedikit longgar dalam penerapan DDD tersebut.
+Sebenarnya masih banyak yang lain, Misalnya `Value Object`, `Aggregate`, `Domain-Service` dll. 
+Namun kita ingin agar code kita menjadi "cukup-baik untuk maintainability", tetapi juga "tidak menjadi terlalu rumit", jadi disini kita agak sedikit longgar dalam penerapan DDD tersebut.
 
 ## Mengapa Pemisahan itu Penting?
 
@@ -89,16 +95,18 @@ type Weather struct {
 ### Skenario
 Suatu hari, API cuaca pihak ketiga mengumumkan perubahan pada respons mereka, menambahkan lebih banyak detail seperti airQualityIndex, visibility, dan uvIndex. Bahkan melakukan perubahan major ke versi 2 seperti split temperatur menjadi temperature_celcius dan temperature_kelvin.
 
-### Dampak Tanpa Pemisahan Struktur
-Jika kita menggunakan Weather struct yang sama untuk menangkap respons dari API, menyimpan data di database, dan juga sebagai respons API kita, perubahan pada API pihak ketiga dapat menyebabkan beberapa masalah:
+### Dampak Tanpa Pemisahan Struktur (bad)
+Jika kita menggunakan Weather struct yang sama untuk menangkap respons dari API, menyimpan data di database, dan juga sebagai respons API kita, perubahan pada API pihak ketiga dapat menyebabkan beberapa masalah berikut:
 - **Overfetching and Irrelevant Data**: kita mungkin tidak memerlukan semua data tambahan seperti temperature_kelvin atau uvIndex untuk tujuan aplikasi kita, tetapi karena menggunakan struktur yang sama, kita terpaksa menangani data ekstra ini.
 - **Peningkatan Kompleksitas**: Perubahan atau penambahan lebih banyak field ke Weather struct meningkatkan kompleksitas pengelolaan data tersebut, baik dalam hal pemrosesan maupun penyimpanan.
 - **Perubahan di Banyak Tempat**: Perlu mengubah database, logika bisnis, dan mungkin juga frontend untuk menangani data baru.
 
-### Dampak Dengan Pemisahan Struktur
-Dengan pemisahan DTO, Entity, dan Model, kita dapat lebih efisien dalam menangani perubahan ini:
+### Dampak Dengan Pemisahan Struktur (good)
+Sebaliknya, dengan memisahkan DTO, Entity, dan Model, kita dapat lebih efisien dalam menangani perubahan ini.
 
-DTO (Data Transfer Object): kita membuat DTO khusus untuk menangkap respons dari API cuaca yang mencakup semua data baru (atau hanya data relevan). Membantu kita untuk mengetahui ketersediaan data dari API.  
+**DTO (Data Transfer Object):**  
+kita membuat struct khusus untuk menangkap respons dari API cuaca yang mencakup semua data baru (atau hanya data relevan). 
+Membantu kita untuk mengetahui ketersediaan data dari API.  
 Terhadap skenario diatas, kita cukup menyesuaikan dibagian layer API Client saja.
 
 ```go
@@ -119,7 +127,8 @@ func (w *WeatherAPIResponse) ToEntity(){
 }
 ```
 
-Entity: Entity Weather dalam aplikasi kita hanya menyimpan data yang relevan untuk fungsi aplikasi, seperti Temperature, Humidity, dan Description. Tidak perlu menyimpan uvIndex atau visibility jika data tersebut tidak digunakan dalam proses perencanaan acara, dengan begitu kita mengetahui data mana yang penting untuk logic dan yang tidak.
+**Entity:**  
+Entity Weather dalam aplikasi kita hanya menyimpan data yang relevan untuk fungsi aplikasi, seperti Temperature, Humidity, dan Description. Tidak perlu menyimpan uvIndex atau visibility jika data tersebut tidak digunakan dalam proses perencanaan acara, dengan begitu kita mengetahui data mana yang penting untuk logic dan yang tidak.
 
 ```go
 type WeatherEntity struct {
@@ -145,9 +154,11 @@ func (w *WeatherEntity) IsOutdoorEventFeasible() bool {
 }
 ```
 
-Logika Bisnis (Usecase Layer): Logika bisnis hanya mengolah data yang sudah berupa Entity, Logika bisnis seharusnya tidak mengenal model database atau response dari API pihak ketiga. Ini memudahkan pemeliharaan dan mengurangi risiko error.
+**Logika Bisnis (Usecase Layer):**  
+Logika bisnis hanya mengolah data yang sudah berupa Entity, Logika bisnis seharusnya tidak mengenal model database atau response dari API pihak ketiga. Ini memudahkan pemeliharaan dan mengurangi risiko error.
 
-Database : Untuk keperluan menyimpan ke database gunakan struct tersendiri, khususnya jika menggunkan ORM
+**Model Database:**  
+Untuk keperluan menyimpan ke database gunakan struct tersendiri, khususnya jika menggunkan ORM
 ```go
 type WeatherModel struct {
     ID          string  `db:"id"`  
@@ -174,38 +185,40 @@ Namun, pendekatan ini sering dianggap sebagai bayaran-yang-wajar untuk manfaat y
 
 Lagipula, latensi yang dihasilkan dari transformasi data ini sangat sangat sangat minim jika dibandingkan dengan latensi operasi database, yang cenderung menjadi bottleneck yang lebih signifikan dalam banyak aplikasi.
 
-## Cara Memisahkan Struktur Data yang tepat
+## Cara Memisahkan Struct yang tepat
 
-Saya menyarankan pendekatan berikut untuk memisahkan struktur data dalam arsitektur API yang robust dan scalable. Pendekatan ini memastikan bahwa setiap lapisan dalam aplikasi memiliki tanggung jawab yang jelas dan terpisah, sehingga memudahkan pemeliharaan dan pengembangan di masa mendatang.
+Saya menyarankan pendekatan berikut untuk memisahkan struct golang dalam arsitektur API. 
+Pendekatan ini memastikan bahwa setiap lapisan dalam aplikasi memiliki tanggung jawab yang jelas dan terpisah, sehingga memudahkan pemeliharaan dan pengembangan di masa mendatang.
 
 ### Struct untuk Lapisan API:
-- WeatherRequest dan WeatherResponse: Struct ini digunakan untuk menangani data yang masuk dan keluar dari API. Mereka bertanggung jawab untuk memvalidasi dan memformat data sesuai dengan kebutuhan klien.
-- Untuk kasus yang lebih kompleks, seperti fitur partial update, Anda mungkin memerlukan WeatherUpdateRequest. Versi ini menggunakan field pointer untuk memungkinkan pembaruan sebagian.
+- WeatherRequest dan WeatherResponse: Struct ini digunakan untuk menangani data yang masuk dan keluar dari API (presentation). Mereka bertanggung jawab untuk memvalidasi dan memformat data sesuai dengan kebutuhan klien.
+- Untuk kasus yang lebih kompleks, seperti fitur partial update, Kamu mungkin memerlukan WeatherUpdateRequest. Versi ini menggunakan field pointer untuk memungkinkan pembaruan sebagian (partial update).
 ### Struct untuk Lapisan Domain: 
 - WeatherEntity: Entity ini mewakili data dalam domain bisnis dan berisi logika yang terkait langsung dengan aturan bisnis. Entity harus stabil dan tidak terpengaruh oleh perubahan di lapisan lain, seperti database atau API eksternal.
-- Untuk kasus yang lebih kompleks, seperti fitur partial update, Anda mungkin memerlukan WeatherUpdateDTO. Versi DTO yang juga menggunakan field pointer untuk fleksibilitas dalam pengiriman data.
+- Untuk kasus yang lebih kompleks, seperti fitur partial update, Kamu mungkin memerlukan WeatherUpdateDTO. Versi DTO yang juga menggunakan field pointer untuk fleksibilitas dalam pengiriman data.
 ### Struct untuk Lapisan Persistence:
 - WeatherModel: Struct ini digunakan untuk interaksi dengan database. Model ini mencerminkan skema penyimpanan dan dapat berubah seiring dengan perubahan di layer database.
 
-## Implementasi di Setiap Layer
+## Diagram Implementasi
 
 {{< zoom-image src="/img/struct-separation/struct-separation.webp" title="" alt="struct separation layer" >}}
 
-- Layer Handler: Menerima WeatherRequest, mengubahnya menjadi WeatherEntity, dan sebaliknya, mengubah WeatherEntity atau DTO dari usecase menjadi WeatherResponse.
-- Layer Usecase: Beroperasi dengan WeatherEntity, memastikan bahwa logika bisnis dijalankan secara konsisten. Layer ini mengembalikan entity atau DTO sesuai kebutuhan.
-- Layer Repository: Mengelola interaksi dengan database, menerima WeatherEntity atau DTO, dan mengembalikan WeatherEntity ke layer usecase.
+Dengan asumsi menggunakan Clean Architecture atau Hexagonal Architecture, maka :
 
-Di level usecase, penting untuk menjaga agar kita hanya bekerja dengan entity. Entity adalah representasi domain yang harus tetap stabil meskipun ada perubahan di lapisan lain, seperti perubahan skema database. Dengan cara ini, logika bisnis kita tetap konsisten dan tidak terpengaruh oleh perubahan eksternal.
+- Handler Layer mengelola data request dan response, mengubah request ke tipe data internal yang dapat kita kontrol sepenuhnya (entity) sebelum diteruskan ke Usecase.
+- Usecase Layer bekerja dengan entity yang stabil, layer ini seharusnya menghindari ketergantungan langsung pada model database atau format API eksternal.
+- Repository Layer mengelola akses ke database dan mengubah data ke dan dari entity yang digunakan oleh usecase.
 
-Untuk API yang berintegrasi dengan layanan eksternal, sangat dianjurkan untuk memiliki representasi entitas tersendiri dari respons API tersebut. Hal ini menjaga stabilitas logika internal dan mengurangi ketergantungan pada perubahan dari API eksternal. Misalnya, jika API eksternal mengembalikan data A-Z tetapi aplikasi kita hanya memerlukan A, B, dan C, kita dapat menghindari kebingungan di masa depan dengan hanya memproses data yang relevan.
-
-Intinya :
-- Handler Layer: Harus mengelola request dan response, mengubahnya ke tipe data internal yang kita kontrol.
-- Usecase Layer: Harus bekerja dengan entity yang stabil, menghindari ketergantungan langsung pada model database atau format API eksternal.
-- Repository Layer: Harus mengelola akses ke database dan mengubah data ke dan dari entity yang digunakan oleh usecase.
-Pendekatan ini memastikan bahwa setiap lapisan terisolasi dari perubahan yang tidak relevan di lapisan lain, sehingga meningkatkan ketahanan dan fleksibilitas aplikasi.
+Pendekatan ini memastikan bahwa setiap lapisan terisolasi dari perubahan yang tidak relevan di lapisan lain, sehingga meningkatkan ketahanan dan fleksibilitas aplikasi. 
+Dengan memisahkan tanggung jawab di setiap layer, aplikasi menjadi lebih modular, memudahkan pemeliharaan dan skalabilitas.
 
 ## Kesimpulan
-Menerapkan DDD dalam desain API tidak hanya membantu dalam pemisahan dan pengorganisasian kode tetapi juga meningkatkan keamanan dan keberlanjutan aplikasi. Walaupun mungkin terlihat sebagai penambahan kerumitan awal, pemisahan struktur data ini memfasilitasi pemeliharaan dan adaptasi sistem terhadap perubahan yang mungkin terjadi di masa depan. Dengan pendekatan ini, kita dapat memastikan bahwa setiap komponen sistem memiliki tanggung jawab yang jelas, mengurangi ketergantungan antar-modul, dan memperkuat arsitektur aplikasi secara keseluruhan.
+Mengimplementasikan pemisahan struct DTO, Entity dan Model dalam desain API menggunakan Golang merupakan investasi kecil yang bisa menghemat banyak waktu dan 
+sumber daya untuk pengembangan dan pemeliharaan di masa depan, 
+membuat sistem kita tidak hanya efisien tapi juga mudah untuk dikelola dan dikembangkan. 
+Pendekatan ini dapat membagi tanggung jawab tiap komponen secara jelas, mengurangi ketergantungan antar-modul, dan pada akhirnya menguatkan keseluruhan arsitektur aplikasi itu sendiri. 
 
-Melalui pengintegrasian DDD dalam pembuatan API dengan Golang, developer dapat menciptakan sistem yang tidak hanya efisien tetapi juga mudah dikelola dan diperluas. Ini adalah investasi kecil di awal yang dapat menghemat banyak waktu dan sumber daya dalam pengembangan dan pemeliharaan sistem di masa depan.
+Tentu, tidak ada satu pendekatan yang sempurna untuk setiap situasi. 
+Bagaimana pengalamanmu dalam mengimplementasikan atau mungkin tidak mengimplementasikan prinsip ini? 
+Apakah ada kasus khusus di mana kamu menemukan alternatif yang lebih efektif? 
+Mari berbagi pengalaman di kolom komentar.
