@@ -1,5 +1,5 @@
 ---
-title: "Kesalahan Umum dalam Penggunaan Golang Goroutine"
+title: "Perhatikan hal-hal ini jika kamu menggunakan Golang Goroutine"
 date: 2022-12-26T11:30:03+00:00
 # weight: 1
 tags: ["Golang", "Goroutine", "Context Management", "Error Handling", "Graceful Shutdown", "Best Practices"]
