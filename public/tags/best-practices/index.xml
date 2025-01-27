@@ -13,7 +13,7 @@
       <link>https://blog.muchlis.dev/post/struct-separation/</link>
       <pubDate>Sun, 26 Jan 2025 00:49:17 +0800</pubDate>
       <guid>https://blog.muchlis.dev/post/struct-separation/</guid>
-      <description>Bagaimana pemisahan tanggung jawab antar struct dapat meningkatkan keamanan, keberlanjutan, dan efisiensi dalam pengembangan aplikasi.</description>
+      <description>Bagaimana pemisahan tanggung jawab antar struct (atau class) dapat meningkatkan keamanan, keberlanjutan, dan efisiensi dalam pengembangan aplikasi.</description>
     </item>
     <item>
       <title>Teknik Implementasi Database Transaction pada Logic Layer di Backend Golang</title>

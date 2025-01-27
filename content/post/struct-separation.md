@@ -10,7 +10,7 @@ showToc: true
 TocOpen: false
 hidemeta: false
 comments: true
-description: 'Bagaimana pemisahan tanggung jawab antar struct dapat meningkatkan keamanan, keberlanjutan, dan efisiensi dalam pengembangan aplikasi.'
+description: 'Bagaimana pemisahan tanggung jawab antar struct (atau class) dapat meningkatkan keamanan, keberlanjutan, dan efisiensi dalam pengembangan aplikasi.'
 disableHLJS: true
 disableShare: false
 disableHLJS: false
@@ -34,14 +34,14 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-Dalam pengembangan Aplikasi Golang, sering kali kita temukan satu struktur data (struct) yang dipakai untuk berbagai keperluan, 
+Dalam pengembangan Aplikasi Golang, sering kali kita temukan satu struct object yang dipakai untuk berbagai keperluan, 
 seperti representasi data di database sekaligus payload dalam request dan response API. 
 Meskipun terlihat praktis, pendekatan ini sebenarnya dapat memunculkan masalah terkait keamanan dan pemeliharaan. 
 Artikel ini akan membahas pentingnya memisahkan DTO, Entity dan Model dengan menerapkan sedikit prinsip Domain-Driven Design (DDD).
 
 <!--more-->
 
-## Memahami Domain-Driven Design: Entity, Model, & DTO
+## Memahami Entity, Model dan DTO dalam Prinsip Domain-Driven Design
 Domain-Driven Design (DDD) adalah metodologi pengembangan perangkat lunak yang berfokus pada pemisahan tanggung jawab melalui pemodelan yang berorientasi pada domain bisnis. Dalam DDD, kita mengenal beberapa konsep penting:
 
 1. **Data Transfer Object (DTO)** :  Digunakan untuk mengirimkan data antar fungsi tanpa melibatkan logika bisnis yang kompleks. Misalnya, struct untuk request, response, dan parameter fungsi.
@@ -69,7 +69,7 @@ Domain-Driven Design (DDD) adalah metodologi pengembangan perangkat lunak yang b
 		return true
 	}
 	```
-3. **Repository** : Menyembunyikan detail implementasi penyimpanan data. Struct model untuk database berfungsi sebagai media bantu untuk repository.
+3. **Repository** : Object Repository menyembunyikan detail implementasi penyimpanan data. Sedangkan Struct Model berfungsi sebagai representasi data pada database yang digunakan oleh Repository.
 4. **Application Service** : Menangani logika bisnis yang memerlukan interaksi dengan komponen eksternal atau layanan lainnya, dalam clean architecture ini sering disebut `usecase` atau `service`. 
 Menghandle operasi-operasi yang tidak secara alami cocok dalam konteks Entity atau Value Object.
 
@@ -78,7 +78,11 @@ Namun kita ingin agar code kita menjadi "cukup-baik untuk maintainability", teta
 
 ## Mengapa Pemisahan itu Penting?
 
-Menggunakan struktur yang sama di berbagai lapisan aplikasi (database, logika bisnis, presentasi) dapat menciptakan keterikatan yang tinggi. Ini berarti perubahan di satu area, seperti database, dapat mempengaruhi area lain, seperti API. Misalnya, menambahkan kolom baru di database yang tidak relevan untuk pengguna API tetapi diperlukan untuk proses internal dapat menyebabkan perluasan struct yang tidak perlu dan bahkan mengacaukan logika aplikasi.  
+Menggunakan struct yang sama di berbagai lapisan aplikasi (database, logika bisnis, presentasi) dapat menciptakan keterikatan yang tinggi. 
+Ini berarti perubahan di satu area, seperti database, dapat mempengaruhi area lain, seperti API. 
+Misalnya, menambahkan kolom baru di database yang tidak relevan untuk pengguna API tetapi diperlukan untuk proses internal dapat menyebabkan perluasan struct yang tidak perlu dan bahkan mengacaukan logika aplikasi.  
+
+### Skenario
 
 Misalkan kita memiliki aplikasi yang membantu pengguna merencanakan acara berdasarkan prakiraan cuaca. Aplikasi kita menggunakan API cuaca pihak ketiga untuk mendapatkan informasi cuaca terkini.
 
@@ -92,16 +96,15 @@ type Weather struct {
 }
 ```
 
-### Skenario
 Suatu hari, API cuaca pihak ketiga mengumumkan perubahan pada respons mereka, menambahkan lebih banyak detail seperti airQualityIndex, visibility, dan uvIndex. Bahkan melakukan perubahan major ke versi 2 seperti split temperatur menjadi temperature_celcius dan temperature_kelvin.
 
-### Dampak Tanpa Pemisahan Struktur (bad)
+### Dampak Tanpa Pemisahan Struct (bad)
 Jika kita menggunakan Weather struct yang sama untuk menangkap respons dari API, menyimpan data di database, dan juga sebagai respons API kita, perubahan pada API pihak ketiga dapat menyebabkan beberapa masalah berikut:
+- **Perubahan di Banyak Tempat**: Perubahan di suatu struct artinya juga mengubah database, logika bisnis, dan mungkin juga data yang dikonsumsi oleh frontend.
 - **Overfetching and Irrelevant Data**: kita mungkin tidak memerlukan semua data tambahan seperti temperature_kelvin atau uvIndex untuk tujuan aplikasi kita, tetapi karena menggunakan struktur yang sama, kita terpaksa menangani data ekstra ini.
-- **Peningkatan Kompleksitas**: Perubahan atau penambahan lebih banyak field ke Weather struct meningkatkan kompleksitas pengelolaan data tersebut, baik dalam hal pemrosesan maupun penyimpanan.
-- **Perubahan di Banyak Tempat**: Perlu mengubah database, logika bisnis, dan mungkin juga frontend untuk menangani data baru.
+- **Peningkatan Kompleksitas**: Dengan adanya data baru, kita mungkin memerlukan sedikit modifikasi pada tipe datanya untuk menyesuaikan Tag, Marshaler, Scanners and Valuers.
 
-### Dampak Dengan Pemisahan Struktur (good)
+### Dampak Dengan Pemisahan Struct (good)
 Sebaliknya, dengan memisahkan DTO, Entity, dan Model, kita dapat lebih efisien dalam menangani perubahan ini.
 
 **DTO (Data Transfer Object):**  
@@ -155,7 +158,7 @@ func (w *WeatherEntity) IsOutdoorEventFeasible() bool {
 ```
 
 **Logika Bisnis (Usecase Layer):**  
-Logika bisnis hanya mengolah data yang sudah berupa Entity, Logika bisnis seharusnya tidak mengenal model database atau response dari API pihak ketiga. Ini memudahkan pemeliharaan dan mengurangi risiko error.
+Logika bisnis seharusnya tidak mengenal model database atau response dari API pihak ketiga. Logika bisnis hanya mengolah data yang sudah berupa Entity atau yang kita bisa kontrol kestabilannya.  Ini memudahkan pemeliharaan dan mengurangi risiko error.
 
 **Model Database:**  
 Untuk keperluan menyimpan ke database gunakan struct tersendiri, khususnya jika menggunkan ORM
@@ -185,12 +188,17 @@ Namun, pendekatan ini sering dianggap sebagai bayaran-yang-wajar untuk manfaat y
 
 Lagipula, latensi yang dihasilkan dari transformasi data ini sangat sangat sangat minim jika dibandingkan dengan latensi operasi database, yang cenderung menjadi bottleneck yang lebih signifikan dalam banyak aplikasi.
 
+## Kapan Sebaiknya Tidak Memisahkan Struct?
+- Sistemnya terlalu sederhana.
+- Memerlukan kecepatan tinggi seperti dalam pengembangan game.
+- Peningkatan peforma sekecil-kecilnya dinilai lebih penting daripada keterbacaan dan kemudahan pemeliharaan.
+
 ## Cara Memisahkan Struct yang tepat
 
 Saya menyarankan pendekatan berikut untuk memisahkan struct golang dalam arsitektur API. 
 Pendekatan ini memastikan bahwa setiap lapisan dalam aplikasi memiliki tanggung jawab yang jelas dan terpisah, sehingga memudahkan pemeliharaan dan pengembangan di masa mendatang.
 
-### Struct untuk Lapisan API:
+### Struct untuk Lapisan Presentation:
 - WeatherRequest dan WeatherResponse: Struct ini digunakan untuk menangani data yang masuk dan keluar dari API (presentation). Mereka bertanggung jawab untuk memvalidasi dan memformat data sesuai dengan kebutuhan klien.
 - Untuk kasus yang lebih kompleks, seperti fitur partial update, Kamu mungkin memerlukan WeatherUpdateRequest. Versi ini menggunakan field pointer untuk memungkinkan pembaruan sebagian (partial update).
 ### Struct untuk Lapisan Domain: 
