@@ -23,6 +23,13 @@
       <description>Teknik tingkat mahir untuk menerapkan database transaction pada arsitektur yang modular</description>
     </item>
     <item>
+      <title>Optimasi Pagination: Mengapa Limit-Offset Bisa Menjadi Bom Waktu dan Cursor Pagination Menjadi Solusinya</title>
+      <link>https://blog.muchlis.dev/post/pagination/</link>
+      <pubDate>Sun, 11 Aug 2024 13:57:10 +0800</pubDate>
+      <guid>https://blog.muchlis.dev/post/pagination/</guid>
+      <description>Membandingkan metode paling optimal dalam penerapan pagination pada backend golang. Implementasi Cursor Based Pagination.</description>
+    </item>
+    <item>
       <title>Struktur Folder dan Aturan Penulisan Kode dalam Project Golang: Preferensi Pribadi</title>
       <link>https://blog.muchlis.dev/post/structuring-project-folder/</link>
       <pubDate>Sat, 20 Jul 2024 16:06:50 +0800</pubDate>

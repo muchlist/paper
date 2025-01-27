@@ -27,6 +27,7 @@ UseHugoToc: true
 # canonicalURL: "https://canonical.url/to/page"
 cover:
     image: "/img/struct-separation/struct-separation.webp" # image path/url
+    alt: "struct separation golang"
     hidden: true # only hide on current single page
 editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"

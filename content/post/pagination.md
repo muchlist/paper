@@ -3,7 +3,7 @@ title: 'Optimasi Pagination: Mengapa Limit-Offset Bisa Menjadi Bom Waktu dan Cur
 date: 2024-08-11T13:57:10+08:00
 draft: false
 categories: ["Backend"]
-tags: ["Golang", "Database", "Optimization", "Best Practice"]
+tags: ["Golang", "Database", "Optimization", "Best Practices"]
 author: "Muchlis"
 showToc: true
 TocOpen: false
