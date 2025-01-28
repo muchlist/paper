@@ -30,6 +30,8 @@ Golang
 - gotenberg
 - https://github.com/fergusstrange/embedded-postgres
 - UUIDv4 UUIDv7 ULID
+- Big bang changes (example odoo), Strangler pig pattern
+- SSE, Short Poll, Long Poll vs Websocket
 
 Flutter
 - Writing Granular Code in Flutter for Easy Switching Between State Management Solutions

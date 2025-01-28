@@ -155,13 +155,17 @@ Memisahkan struct antara Entity, DTO, dan Model cukup penting agar fleksibilitas
 - Tidak selamanya apa yang dikonsumsi oleh logika bisnis akan sama persis dengan model database.
 - Tidak selamanya response yang diterima user sama persis dengan tabel di database. Dan seterusnya.
 
+Baca : [Memahami Pentingnya Memisahkan DTO, Entity dan Model dalam Pengembangan Aplikasi](/post/struct-separation)
+
 ## Rules
 
 Sangat penting untuk membuat dan memperbarui aturan yang telah disepakati agar semua pihak mengikuti pendekatan yang konsisten. Misalnya, template repositori ini didasarkan pada kemampuannya untuk menghindari kode yang terlalu terikat (tightly-coupled), maka aturan `Cara Penulisan Dependensi Kode` menjadi sangat penting untuk dipatuhi. 
 
 Aturan ini akan bertambah seiring berjalannya waktu. Misalnya, yang seringkali terjadi perbedaan pendapat : 
-- `Bagaimana cara melakukan database transaction di logic layer ?`
-- `Seberapa dalam kondisi if else boleh dilakukan`. dsb. 
+- `Seberapa dalam kondisi if else boleh dilakukan` 
+- `Bagaimana cara melakukan database transaction di logic layer ?`. dan sebagainya. 
+
+Baca juga [Teknik Implementasi Database Transaction pada Logic Layer di Backend Golang](/post/db-transaction)
 
 ### Cara Penulisan Dependensi Kode
 
@@ -256,7 +260,6 @@ func (n *NotifService) SendWhatsapp(message string, phone string) error {
 - Jangan mengekspose variable dalam package, Gunakan kombinasi variabel private dan fungsi publik sebagai gantinya.
 - Ketika kode banyak digunakan, buatlah helper.go. Namun jika digunakan di beberapa paket, buatlah paket baru (misalnya untuk mengekstrak error yang cuma ada di user, `/business/user/ipkg/error_parser.go`). Jika penggunaannya sangat luas, masukkan di `/pkg` (misalnya, `pkg/slicer/slicer.go`, `pkg/datastructure/ds.go`, `pkg/errr/custom_error.go`).
 - Patuhi idiom golang. Namakan interface dengan akhiran -er atau -tor untuk menunjukkan bahwa mereka adalah interface, misalnya Writer, Reader, Assumer, Saver, Reader, Generator. ([https://go.dev/doc/effective_go#interface-names](https://go.dev/doc/effective_go#interface-names)). Contoh: Dalam proyek dengan tiga lapisan: UserServiceAssumer, UserStorer, UserSaver, UserLoader.
-
 
 ## Tools
 
