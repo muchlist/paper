@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Golang DDD on Muchlis Dev</title>
+    <link>https://blog.muchlis.dev/tags/golang-ddd/</link>
+    <description>Recent content in Golang DDD on Muchlis Dev</description>
+    <generator>Hugo -- 0.126.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 26 Jan 2025 00:49:17 +0800</lastBuildDate>
+    <atom:link href="https://blog.muchlis.dev/tags/golang-ddd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Memahami Pentingnya Memisahkan DTO, Entity dan Model dalam Pengembangan Aplikasi</title>
+      <link>https://blog.muchlis.dev/post/struct-separation/</link>
+      <pubDate>Sun, 26 Jan 2025 00:49:17 +0800</pubDate>
+      <guid>https://blog.muchlis.dev/post/struct-separation/</guid>
+      <description>Bagaimana pemisahan tanggung jawab antar struct (atau class) dapat meningkatkan keamanan, keberlanjutan, dan efisiensi dalam pengembangan aplikasi.</description>
+    </item>
+  </channel>
+</rss>

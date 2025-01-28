@@ -4,7 +4,7 @@ date: 2025-01-26T00:49:17+08:00
 draft: false
 # weight: 1
 categories: ["Backend"]
-tags: ["golang", "Best Practices"]
+tags: ["golang", "Best Practices", "Golang DDD"]
 author: "Muchlis"
 showToc: true
 TocOpen: false
@@ -79,9 +79,7 @@ Namun kita ingin agar code kita menjadi "cukup-baik untuk maintainability", teta
 
 ## Mengapa Pemisahan itu Penting?
 
-Menggunakan struct yang sama di berbagai lapisan aplikasi (database, logika bisnis, presentasi) dapat menciptakan keterikatan yang tinggi. 
-Ini berarti perubahan di satu area, seperti database, dapat mempengaruhi area lain, seperti API. 
-Misalnya, menambahkan kolom baru di database yang tidak relevan untuk pengguna API tetapi diperlukan untuk proses internal dapat menyebabkan perluasan struct yang tidak perlu dan bahkan mengacaukan logika aplikasi.  
+Menggunakan struct yang sama di berbagai lapisan aplikasi seperti database, logika bisnis, dan presentasi dapat menciptakan keterikatan yang tinggi. Misalnya, perubahan di database (seperti menambahkan kolom baru) dapat memengaruhi API, bahkan jika kolom tersebut tidak relevan untuk pengguna API
 
 ### Skenario
 
@@ -109,7 +107,7 @@ Jika kita menggunakan Weather struct yang sama untuk menangkap respons dari API,
 Sebaliknya, dengan memisahkan DTO, Entity, dan Model, kita dapat lebih efisien dalam menangani perubahan ini.
 
 **DTO (Data Transfer Object):**  
-kita membuat struct khusus untuk menangkap respons dari API cuaca yang mencakup semua data baru (atau hanya data relevan). 
+Kita membuat struct khusus untuk menangkap respons dari API cuaca yang mencakup semua data baru (atau hanya data relevan). 
 Membantu kita untuk mengetahui ketersediaan data dari API.  
 Terhadap skenario diatas, kita cukup menyesuaikan dibagian layer API Client saja.
 
@@ -221,6 +219,8 @@ Dengan asumsi menggunakan Clean Architecture atau Hexagonal Architecture, maka :
 Pendekatan ini memastikan bahwa setiap lapisan terisolasi dari perubahan yang tidak relevan di lapisan lain, sehingga meningkatkan ketahanan dan fleksibilitas aplikasi. 
 Dengan memisahkan tanggung jawab di setiap layer, aplikasi menjadi lebih modular, memudahkan pemeliharaan dan skalabilitas.
 
+Baca juga : [Bagaimana cara menerapkan aturan yang baik untuk menjaga separation of concern](/post/structuring-project-folder)
+
 ## Kesimpulan
 Mengimplementasikan pemisahan struct DTO, Entity dan Model dalam desain API menggunakan Golang merupakan investasi kecil yang bisa menghemat banyak waktu dan 
 sumber daya untuk pengembangan dan pemeliharaan di masa depan, 
@@ -230,4 +230,4 @@ Pendekatan ini dapat membagi tanggung jawab tiap komponen secara jelas, menguran
 Tentu, tidak ada satu pendekatan yang sempurna untuk setiap situasi. 
 Bagaimana pengalamanmu dalam mengimplementasikan atau mungkin tidak mengimplementasikan prinsip ini? 
 Apakah ada kasus khusus di mana kamu menemukan alternatif yang lebih efektif? 
-Mari berbagi pengalaman di kolom komentar.
+Bagikan pengalamanmu di kolom komentar!
