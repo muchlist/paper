@@ -63,9 +63,6 @@ Arsitektur hexagonal, juga dikenal sebagai arsitektur port dan adapter, berfokus
 ```bash
 ├── app
 │   ├── api-user
-│   │   ├── handler
-│   │   │   ├── health_check.go
-│   │   │   └── user.go
 │   │   ├── main.go
 │   │   └── url_map.go
 │   ├── consumer-user
@@ -74,6 +71,8 @@ Arsitektur hexagonal, juga dikenal sebagai arsitektur port dan adapter, berfokus
 │       └── main.go
 ├── business
 │   ├── complex
+│   │   ├── handler
+│   │   │   └── handler.go
 │   │   ├── helper
 │   │   │   └── formula.go
 │   │   ├── port
@@ -85,9 +84,11 @@ Arsitektur hexagonal, juga dikenal sebagai arsitektur port dan adapter, berfokus
 │   ├── notifserv
 │   │   └── service.go
 │   └── user
+│       ├── handler.go
 │       ├── repo.go
 │       ├── service.go
-│       └── storer.go
+│       ├── storer.go
+│       └── worker.go
 ├── conf
 │   ├── conf.go
 │   └── confs.go
