@@ -1,5 +1,5 @@
 ---
-title: 'Dari Frustrasi Jadi Solusi: Perjalanan Merilis Kazz, Aplikasi Keuangan 2025 Impian Saya'
+title: 'Dari Frustrasi Jadi Solusi: Perjalanan Merilis Kazz, Aplikasi Keuangan Impian Saya'
 date: 2025-07-26T14:16:41+08:00
 draft: false
 categories: ["Backend"]
@@ -39,7 +39,7 @@ Namanya Kazz, sebuah aplikasi money tracker yang lahir dari keresahan pribadi. D
 
 Ceritanya klise. Saya butuh aplikasi untuk mencatat pengeluaran sehari-hari. Kopi di pagi hari, makan siang, jajan sore, sampai bayar parkir. Saya coba unduh beberapa aplikasi keuangan yang populer. Hasilnya? Tidak seperti yang saya harapkan.
 
-Ada yang fiturnya kebanyakan tapi tidak relevan. Ada yang iklannya muncul setiap habis catat transaksi. Ada juga yang tampilannya kaku dan butuh banyak langkah cuma buat masukin data "beli boba 20 ribu". Saya cuma butuh yang cepat, simpel, dan tidak ribet.
+Ada yang fiturnya banyak tapi tidak relevan (ada investasi uang betulan didalamnya). Ada yang iklannya muncul setiap habis catat transaksi. Ada juga yang tampilannya kaku dan butuh banyak langkah cuma buat masukin data "beli boba 20 ribu". Saya cuma butuh yang cepat, simpel, dan tidak ribet.
 
 Karena frustrasi tidak menemukan yang pas, tercetuslah ide: **"Kenapa tidak bikin sendiri aja?"**
 
@@ -48,7 +48,7 @@ Saya coba petakan apa saja yang saya rasakan kurang dari aplikasi lain dan apa y
 
 |Fitur|Aplikasi Lain (Umumnya)|Kazz ✨|
 |---|---|---|
-|**Input Transaksi**|Ketik manual, pilih kategori, isi nominal. Butuh beberapa klik.|Cukup ngomong! "Beli kopi susu 18 ribu". Selesai.|
+|**Input Transaksi**|Ketik manual, pilih kategori, isi nominal. Butuh beberapa klik.|Cukup ngomong! "Beli kopi susu 18 ribu".|
 |**Laporan Keuangan**|Grafik dan angka standar. Sulit dibaca dan tidak ada konteks. Berbayar|Laporan cerdas dari AI, membandingkan dengan periode sebelumnya & memberi _insight_.|
 |**Klasifikasi Need/Want**|Tidak ada, padahal ini konsep dasar budgeting.|Otomatis mengklasifikasikan transaksi sebagai Kebutuhan/Keinginan.|
 |**Transaksi Serupa**|Harus input ulang dari awal.|Cukup 1-klik untuk duplikat transaksi yang sama.|
@@ -61,7 +61,7 @@ Saya coba petakan apa saja yang saya rasakan kurang dari aplikasi lain dan apa y
 
 Dari tabel sederhana ini, lahirlah Kazz. Tujuannya: 
 - Saya ingin semua orang bisa mencatat keuangan dengan mudah. 
-- Saya ingin Kazz menjadi **aplikasi keuangan 2025** yang benar-benar mengerti penggunanya.  
+- Saya ingin Kazz menjadi **aplikasi keuangan** yang benar-benar mengerti penggunanya.  
 
 
 Fitur inti sudah selesai. Namun, masih ada beberapa fitur yang saya rencanakan. Misalnya :
@@ -69,20 +69,22 @@ Fitur inti sudah selesai. Namun, masih ada beberapa fitur yang saya rencanakan. 
 - Dompet aset : Idenya adalah kita tidak mencatat uang, tetapi bisa komoditas lain juga, seperti emas.
 
 
-{{< zoom-image src="/img/money-tracker-app/aplikasi-catatan-keuangan.webp" title="" alt="aplikasi catatan keuangan 2025" >}}
+{{< zoom-image src="/img/money-tracker-app/aplikasi-catatan-keuangan.webp" title="" alt="aplikasi catatan keuangan" >}}
 
-## Tech Stack: Pemilihan teknologi
-Saya menggunakan teknologi terbaik saat ini dan yang paling familiar oleh saya sendiri.
+## Tech Stack: Teknologi yang Memberi Kazz Kekuatan
 
-### Backend
-- Golang
-- Go-GenAI
-- Postgresql
-- Redis
-- Asynq
-### Android
-- Flutter
-- Bloc State management
+Pemilihan teknologi bukan hanya soal preferensi, tetapi tentang fondasi yang kokoh untuk kecepatan, keamanan, dan skalabilitas. Setiap komponen dipilih untuk menjalankan peran spesifik demi memberikan pengalaman terbaik.
+
+### Backend: Otak di Balik Kazz
+- **Golang (Go):** Dipilih karena performanya yang luar biasa cepat dan efisien dalam menangani banyak permintaan sekaligus. Inilah yang membuat Kazz tetap responsif bahkan saat data kamu semakin banyak.
+- **PostgreSQL:** Sebagai fondasi data, keandalannya tidak diragukan. Teknologi ini menjamin setiap data yang kamu catat tersimpan dengan aman dan konsisten, tanpa risiko kehilangan data.
+- **Redis:** Bertindak sebagai lapisan _cache_ super cepat. Data yang sering kamu akses disimpan di sini, sehingga aplikasi terasa instan, seolah semua data ada di memori lokal ponsel.
+- **Asynq:** Pahlawan di belakang layar. Tugas-tugas berat seperti membuat laporan bulanan atau memproses AI dijalankan secara terpisah, sehingga kita bisa terus menggunakan aplikasi tanpa merasakan adanya jeda.
+- **Go-GenAI:** Jembatan khusus yang menghubungkan Kazz dengan model AI generatif, memungkinkan Kazz memberikan _insight_ keuangan yang cerdas dan personal.
+
+### Aplikasi Android
+- **Flutter:** Memungkinkan Kazz dikembangkan dengan cepat untuk berbagai platform (Android dan nantinya iOS) dari satu basis kode. Ini memastikan pengalaman pengguna yang konsisten dan mulus, dengan performa layaknya aplikasi native.
+- **BLoC State Management:** Bertindak sebagai arsitek yang menjaga kerapian kode aplikasi. Pola ini memastikan logika dan tampilan terpisah, membuat aplikasi lebih stabil, mudah di-maintenance, dan minim _bug_.
 
 ## Di Balik Layar: Serunya Membuat Fitur "Rumit"
 
@@ -117,7 +119,7 @@ Saya berkomitmen untuk menjaga agar fitur inti Kazz tetap gratis. Adapun jika na
 
 Melihat ada orang lain yang mengunduh dan merasakan manfaat dari apa yang saya buat, itu sudah jadi bayaran tak ternilai. Perjalanan ini lebih tentang pembuktian diri dan kepuasan menciptakan sesuatu yang berguna.
 
-Kalau kamu sedang mencari **aplikasi keuangan 2025** yang simpel, cerdas, dan benar-benar menghargai privasimu, mungkin Kazz adalah jawabannya.
+Kalau kamu sedang mencari **aplikasi keuangan** yang simpel, cerdas, dan benar-benar menghargai privasimu, mungkin Kazz adalah jawabannya.
 
 Saya mengundang kamu untuk mencobanya, dan saya akan sangat senang jika kamu mau memberikan kritik dan saran. Kazz masih jauh dari sempurna dan akan terus berkembang bersama masukan dari para penggunanya.
 
