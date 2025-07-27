@@ -1,6 +1,5 @@
 baseURL: "https://blog.muchlis.dev/"
 title: Muchlis Dev
-paginate: 15
 theme: PaperMod
 
 enableRobotsTXT: true
@@ -159,3 +158,6 @@ taxonomies:
 permalinks:
   categories: /:section/:slug
   tags: /:section/:slug
+
+pagination:
+  pagerSize: 15
