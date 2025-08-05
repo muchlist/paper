@@ -28,6 +28,7 @@ editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
+translationKey: "db-transaction"
 cover:
     image: "/img/db-transaction/db-trsansaction-ddd.webp"
     alt: "database transaction in service layer golang"

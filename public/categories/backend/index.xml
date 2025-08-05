@@ -2,59 +2,59 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Backend on Muchlis Dev</title>
-    <link>http://localhost:1313/categories/backend/</link>
+    <link>https://blog.muchlis.dev/categories/backend/</link>
     <description>Recent content in Backend on Muchlis Dev</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>id</language>
     <lastBuildDate>Sat, 26 Jul 2025 14:16:41 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/backend/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.muchlis.dev/categories/backend/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Dari Frustrasi Jadi Solusi: Perjalanan Merilis Kazz, Aplikasi Keuangan Impian Saya</title>
-      <link>http://localhost:1313/post/money-tracker-app/</link>
+      <link>https://blog.muchlis.dev/post/money-tracker-app/</link>
       <pubDate>Sat, 26 Jul 2025 14:16:41 +0800</pubDate>
-      <guid>http://localhost:1313/post/money-tracker-app/</guid>
+      <guid>https://blog.muchlis.dev/post/money-tracker-app/</guid>
       <description>Tantangan teknis di balik pengembangan Kazz, aplikasi keuangan yang saya bangun untuk menjadi jawaban atas semua masalah pencatatan keuangan</description>
     </item>
     <item>
       <title>Memahami Pentingnya Memisahkan DTO, Entity dan Model dalam Pengembangan Aplikasi</title>
-      <link>http://localhost:1313/post/struct-separation/</link>
+      <link>https://blog.muchlis.dev/post/struct-separation/</link>
       <pubDate>Sun, 26 Jan 2025 00:49:17 +0800</pubDate>
-      <guid>http://localhost:1313/post/struct-separation/</guid>
+      <guid>https://blog.muchlis.dev/post/struct-separation/</guid>
       <description>Bagaimana pemisahan tanggung jawab antar struct (atau class) dapat meningkatkan keamanan, keberlanjutan, dan efisiensi dalam pengembangan aplikasi.</description>
     </item>
     <item>
       <title>Teknik Implementasi Database Transaction pada Logic Layer di Backend Golang</title>
-      <link>http://localhost:1313/post/db-transaction/</link>
+      <link>https://blog.muchlis.dev/post/db-transaction/</link>
       <pubDate>Sat, 12 Oct 2024 15:19:36 +0800</pubDate>
-      <guid>http://localhost:1313/post/db-transaction/</guid>
+      <guid>https://blog.muchlis.dev/post/db-transaction/</guid>
       <description>Teknik tingkat mahir untuk menerapkan database transaction pada arsitektur yang modular</description>
     </item>
     <item>
       <title>Optimasi Pagination: Mengapa Limit-Offset Bisa Menjadi Bom Waktu dan Cursor Pagination Menjadi Solusinya</title>
-      <link>http://localhost:1313/post/pagination/</link>
+      <link>https://blog.muchlis.dev/post/pagination/</link>
       <pubDate>Sun, 11 Aug 2024 13:57:10 +0800</pubDate>
-      <guid>http://localhost:1313/post/pagination/</guid>
+      <guid>https://blog.muchlis.dev/post/pagination/</guid>
       <description>Membandingkan metode paling optimal dalam penerapan pagination pada backend golang. Implementasi Cursor Based Pagination.</description>
     </item>
     <item>
       <title>Struktur Folder dan Aturan Penulisan Kode dalam Project Golang: Preferensi Pribadi</title>
-      <link>http://localhost:1313/post/structuring-project-folder/</link>
+      <link>https://blog.muchlis.dev/post/structuring-project-folder/</link>
       <pubDate>Sat, 20 Jul 2024 16:06:50 +0800</pubDate>
-      <guid>http://localhost:1313/post/structuring-project-folder/</guid>
+      <guid>https://blog.muchlis.dev/post/structuring-project-folder/</guid>
       <description>Golang Struktur Folder dengan Arsitektur Hexagonal</description>
     </item>
     <item>
       <title>Perhatikan hal-hal ini jika kamu menggunakan Golang Goroutine</title>
-      <link>http://localhost:1313/post/safe-goroutine/</link>
+      <link>https://blog.muchlis.dev/post/safe-goroutine/</link>
       <pubDate>Mon, 26 Dec 2022 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/post/safe-goroutine/</guid>
+      <guid>https://blog.muchlis.dev/post/safe-goroutine/</guid>
       <description>Cara efektif menghindari kesalahan yang bisa terjadi pada penggunaan goroutine.</description>
     </item>
     <item>
       <title>Teknik Profiling di Golang</title>
-      <link>http://localhost:1313/post/profiling/</link>
+      <link>https://blog.muchlis.dev/post/profiling/</link>
       <pubDate>Thu, 20 Oct 2022 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/post/profiling/</guid>
+      <guid>https://blog.muchlis.dev/post/profiling/</guid>
       <description>Bagaimana cara melakukan pengukuran kinerja aplikasi golang menggunakan profiling pprof.</description>
     </item>
   </channel>
