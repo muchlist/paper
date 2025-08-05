@@ -5,15 +5,15 @@
     <link>http://localhost:1313/tags/optimization/</link>
     <description>Recent content in Optimization on Muchlis Dev</description>
     <generator>Hugo -- 0.148.1</generator>
-    <language>en</language>
+    <language>id</language>
     <lastBuildDate>Sun, 11 Aug 2024 13:57:10 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Pagination Optimization: Why Limit-Offset Can Be a Time Bomb and Cursor Pagination as the Solution</title>
+      <title>Optimasi Pagination: Mengapa Limit-Offset Bisa Menjadi Bom Waktu dan Cursor Pagination Menjadi Solusinya</title>
       <link>http://localhost:1313/post/pagination/</link>
       <pubDate>Sun, 11 Aug 2024 13:57:10 +0800</pubDate>
       <guid>http://localhost:1313/post/pagination/</guid>
-      <description>Comparing the most optimal methods for implementing pagination in Golang backend. Implementing Cursor-Based Pagination.</description>
+      <description>Membandingkan metode paling optimal dalam penerapan pagination pada backend golang. Implementasi Cursor Based Pagination.</description>
     </item>
     <item>
       <title>Teknik Profiling di Golang</title>

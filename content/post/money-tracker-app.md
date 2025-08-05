@@ -3,7 +3,7 @@ title: 'Dari Frustrasi Jadi Solusi: Perjalanan Merilis Kazz, Aplikasi Keuangan I
 date: 2025-07-26T14:16:41+08:00
 draft: false
 categories: ["Backend"]
-tags: ["Keuangan Pribadi", "Aplikasi", "Anggaran", "Fintech", "Review"]
+tags: ["Personal Finance", "Android", "Budgeting", "Fintech", "Review"]
 author: "Muchlis"
 showToc: true
 TocOpen: false

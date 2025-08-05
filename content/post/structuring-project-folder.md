@@ -299,7 +299,7 @@ $ go run ./app/api-user
 
 ### pre-commit
 
-Disarankan menggunakan pre-commit ([https://pre-commit.com/]("https://pre-commit.com/")).  
+Disarankan menggunakan pre-commit ([https://pre-commit.com/](https://pre-commit.com/)).  
 
   ```bash
   // init
