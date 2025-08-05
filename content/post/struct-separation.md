@@ -33,6 +33,7 @@ editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
+translationKey: "struct-separation"
 ---
 
 Dalam pengembangan Aplikasi Golang, sering kali kita temukan satu struct object yang dipakai untuk berbagai keperluan, 

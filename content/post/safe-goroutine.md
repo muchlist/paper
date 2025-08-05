@@ -30,6 +30,7 @@ editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
+translationKey: "safe-goroutine"
 ---
 
 Dalam pengembangan backend dengan Golang, pengelolaan proses di background menggunakan goroutine merupakan praktik umum yang dapat meningkatkan kinerja aplikasi. Namun, terdapat beberapa masalah umum yang sering dihadapi ketika mengimplementasikan goroutine, terutama dalam hal penanganan panic, pengelolaan context, dan proses shutdown yang baik. Artikel ini akan mengulas beberapa kesalahan umum yang terkait dengan penggunaan goroutine dan cara mengatasinya.

@@ -33,6 +33,7 @@ editPost:
     URL: "https://github.com/muchlist/paper/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
+translationKey: "structuring-project-folder"
 ---
 
 Seringkali, program golang yang kita buat tidak hanya berupa server Rest-API saja, tetapi juga mencakup fungsi lain seperti Event Consumer, Scheduller, CLI Program, Backfill Database, atau kombinasi dari semuanya. Pedoman project struktur ini dapat kita gunakan untuk memungkinkan semua itu. Struktur ini berfokus pada pemisahan logika inti dari ketergantungan eksternal, sehingga memungkinkan penggunaan ulang kode dalam berbagai mode aplikasi.
@@ -299,7 +300,7 @@ $ go run ./app/api-user
 
 ### pre-commit
 
-Disarankan menggunakan pre-commit ([https://pre-commit.com/]("https://pre-commit.com/")).  
+Disarankan menggunakan pre-commit ([https://pre-commit.com/](https://pre-commit.com/)).  
 
   ```bash
   // init
