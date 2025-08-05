@@ -2,92 +2,92 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.muchlis.dev/tags/anggaran/</loc>
+    <loc>http://localhost:1313/tags/anggaran/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/aplikasi/</loc>
+    <loc>http://localhost:1313/tags/aplikasi/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/categories/backend/</loc>
+    <loc>http://localhost:1313/categories/backend/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/money-tracker-app/</loc>
+    <loc>http://localhost:1313/post/money-tracker-app/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/fintech/</loc>
+    <loc>http://localhost:1313/tags/fintech/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/keuangan-pribadi/</loc>
+    <loc>http://localhost:1313/tags/keuangan-pribadi/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/</loc>
+    <loc>http://localhost:1313/post/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/review/</loc>
+    <loc>http://localhost:1313/tags/review/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-07-26T14:16:41+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/best-practices/</loc>
+    <loc>http://localhost:1313/tags/best-practices/</loc>
     <lastmod>2025-01-26T00:49:17+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/golang/</loc>
+    <loc>http://localhost:1313/tags/golang/</loc>
     <lastmod>2025-01-26T00:49:17+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/golang-ddd/</loc>
+    <loc>http://localhost:1313/tags/golang-ddd/</loc>
     <lastmod>2025-01-26T00:49:17+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/struct-separation/</loc>
+    <loc>http://localhost:1313/post/struct-separation/</loc>
     <lastmod>2025-01-26T00:49:17+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/database/</loc>
+    <loc>http://localhost:1313/tags/database/</loc>
     <lastmod>2024-10-12T15:19:36+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/db-transaction/</loc>
+    <loc>http://localhost:1313/post/db-transaction/</loc>
     <lastmod>2024-10-12T15:19:36+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/pagination/</loc>
+    <loc>http://localhost:1313/tags/optimization/</loc>
     <lastmod>2024-08-11T13:57:10+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/optimization/</loc>
+    <loc>http://localhost:1313/post/pagination/</loc>
     <lastmod>2024-08-11T13:57:10+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/structuring-project-folder/</loc>
+    <loc>http://localhost:1313/post/structuring-project-folder/</loc>
     <lastmod>2024-07-20T16:06:50+08:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/context-management/</loc>
+    <loc>http://localhost:1313/tags/context-management/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/error-handling/</loc>
+    <loc>http://localhost:1313/tags/error-handling/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/goroutine/</loc>
+    <loc>http://localhost:1313/tags/goroutine/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/graceful-shutdown/</loc>
+    <loc>http://localhost:1313/tags/graceful-shutdown/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/safe-goroutine/</loc>
+    <loc>http://localhost:1313/post/safe-goroutine/</loc>
     <lastmod>2022-12-26T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/benchmark/</loc>
+    <loc>http://localhost:1313/tags/benchmark/</loc>
     <lastmod>2022-10-20T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/tags/profiling/</loc>
+    <loc>http://localhost:1313/tags/profiling/</loc>
     <lastmod>2022-10-20T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/post/profiling/</loc>
+    <loc>http://localhost:1313/post/profiling/</loc>
     <lastmod>2022-10-20T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://blog.muchlis.dev/archives/</loc>
+    <loc>http://localhost:1313/archives/</loc>
   </url><url>
-    <loc>https://blog.muchlis.dev/search/</loc>
+    <loc>http://localhost:1313/search/</loc>
   </url>
 </urlset>
